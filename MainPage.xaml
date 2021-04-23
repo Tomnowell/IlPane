@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="Pane.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Pane"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Border Padding="10 50 10 50">
+        <StackPanel>
+            <TextBlock HorizontalAlignment="Center" FontSize="24" FontWeight="Bold">BAKA</TextBlock>
+            <Border Padding="0 30 0 0"></Border>
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Loaf by ingredients-->
+                <StackPanel Grid.Column="0" Margin="0 0 5 0">
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Center"> Loaf by ingredients</TextBlock>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FlourWeight" Text="Flour weight"></TextBox>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FatWeight" Text="Fat weight"></TextBox>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="SaltWeight" Text="Salt weight"></TextBox>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="WaterWeight" Text="Water weight"></TextBox>
+
+                </StackPanel>
+
+                <!--Loaf by ratio-->
+                <StackPanel Grid.Column="1" Margin="5 0 0 0" >
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Center"> Loaf by Ratio</TextBlock>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="LoafRatio" Text="Loaf Ratio"></TextBox>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FlourRatio" Text="Flour Weight"></TextBox>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FatRatio" Text="Fat ratio"></TextBox>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="SaltRatio" Text="Salt ratio"></TextBox>
+                </StackPanel>
+
+
+
+            </Grid>
+            <Border Padding="0 30 0 0"></Border>
+            <Button MaxWidth="300" Margin ="100 0 100 0" Name="Calculate">Calculate</Button>
+            <Border Padding="0 30 0 0"></Border>
+            <TextBox Margin="50 0 50 0" MaxWidth="300" MinHeight="120"></TextBox>
+        </StackPanel>
+    </Border>
+</Page>
+
+
