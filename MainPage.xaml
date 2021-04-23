@@ -6,10 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="400" Height="600">
     <Border Padding="10 50 10 50">
         <StackPanel>
-            <TextBlock HorizontalAlignment="Center" FontSize="24" FontWeight="Bold">BAKA</TextBlock>
+            <TextBlock HorizontalAlignment="Center" FontSize="24" FontWeight="Bold">Pane</TextBlock>
             <Border Padding="0 30 0 0"></Border>
             <Grid>
 
@@ -43,7 +43,9 @@
             <Border Padding="0 30 0 0"></Border>
             <Button MaxWidth="300" Margin ="100 0 100 0" Name="Calculate">Calculate</Button>
             <Border Padding="0 30 0 0"></Border>
-            <TextBox Margin="50 0 50 0" MaxWidth="300" MinHeight="120"></TextBox>
+            <TextBox Margin="50 0 50 0" MaxWidth="300" MinHeight="120" Text="" AcceptsReturn="True" InputScope="Text" PlaceholderText="Notes..."></TextBox>
+            <TextBox Text="TextBox" TextWrapping="Wrap"/>
+            <TextBlock Text="TextBlock" TextWrapping="Wrap"/>
         </StackPanel>
     </Border>
 </Page>
