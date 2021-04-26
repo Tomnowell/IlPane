@@ -7,10 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="400" Height="600">
-    <Border Padding="10 50 10 50">
+    <Border Padding="10 20 10 20">
         <StackPanel>
             <TextBlock HorizontalAlignment="Center" FontSize="24" FontWeight="Bold">Pane</TextBlock>
-            <Border Padding="0 30 0 0"></Border>
+            <Border Padding="0 20 0 0"></Border>
             <Grid>
 
                 <Grid.ColumnDefinitions>
@@ -20,32 +20,34 @@
 
                 <!-- Loaf by ingredients-->
                 <StackPanel Grid.Column="0" Margin="0 0 5 0">
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Center"> Loaf by ingredients</TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FlourWeight" Text="Flour weight"></TextBox>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FatWeight" Text="Fat weight"></TextBox>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="SaltWeight" Text="Salt weight"></TextBox>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="WaterWeight" Text="Water weight"></TextBox>
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Center"> Ingredients</TextBlock>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FlourWeight" PlaceholderText="Flour weight"></TextBox>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FatWeight" PlaceholderText="Fat weight"></TextBox>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="SaltWeight" PlaceholderText="Salt weight"></TextBox>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="WaterWeight" PlaceholderText="Water weight"></TextBox>
 
                 </StackPanel>
 
                 <!--Loaf by ratio-->
                 <StackPanel Grid.Column="1" Margin="5 0 0 0" >
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Center"> Loaf by Ratio</TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="LoafRatio" Text="Loaf Ratio"></TextBox>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FlourRatio" Text="Flour Weight"></TextBox>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FatRatio" Text="Fat ratio"></TextBox>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="SaltRatio" Text="Salt ratio"></TextBox>
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Center">Ratios</TextBlock>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="LoafRatio" PlaceholderText="Loaf Ratio"></TextBox>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FlourRatio" PlaceholderText="Flour Weight"></TextBox>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FatRatio" PlaceholderText="Fat ratio"></TextBox>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="SaltRatio" PlaceholderText="Salt ratio"></TextBox>
                 </StackPanel>
 
 
 
             </Grid>
             <Border Padding="0 30 0 0"></Border>
-            <Button MaxWidth="300" Margin ="100 0 100 0" Name="Calculate">Calculate</Button>
+            <Button HorizontalAlignment="Center" MaxWidth="300" Margin ="100 0 100 0" Name="Calculate">Calculate</Button>
             <Border Padding="0 30 0 0"></Border>
-            <TextBox Margin="50 0 50 0" MaxWidth="300" MinHeight="120" Text="" AcceptsReturn="True" InputScope="Text" PlaceholderText="Notes..."></TextBox>
-            <TextBox Text="TextBox" TextWrapping="Wrap"/>
-            <TextBlock Text="TextBlock" TextWrapping="Wrap"/>
+            <TextBox Margin="50 0 50 0" MaxWidth="300" MinHeight="100" Text="" AcceptsReturn="True" InputScope="Text" PlaceholderText="Notes..." Height="71"></TextBox>
+            <Border Padding="0 10 0 0"></Border>
+            <Button HorizontalAlignment="Center" MaxWidth="300" Margin ="100 0 100 0" Name="Save">Save</Button>
+            <Border Padding="0 10 0 0"></Border>
+            <Button HorizontalAlignment="Center" MaxWidth="300" Margin ="100 0 100 0" Name="Delete">Delete</Button>
         </StackPanel>
     </Border>
 </Page>
