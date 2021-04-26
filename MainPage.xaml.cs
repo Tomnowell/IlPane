@@ -13,6 +13,15 @@ namespace Pane
         public MainPage()
         {
             this.InitializeComponent();
+
+
+        }
+
+        private void AddData(object sender, RoutedEventArgs e)
+        {
+            DataAccess.AddData(Input_Box.Text);
+
+            Output.ItemsSource = DataAccess.GetData();
         }
     }
 }
