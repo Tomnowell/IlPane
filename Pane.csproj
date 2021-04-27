@@ -161,6 +161,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\DataAccessLibrary\DataAccessLibrary.csproj">
       <Project>{23798b23-db21-43b8-a388-25de52fe40bb}</Project>
       <Name>DataAccessLibrary</Name>
