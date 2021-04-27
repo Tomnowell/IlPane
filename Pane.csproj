@@ -156,16 +156,13 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
     </PackageReference>
-    <PackageReference Include="SQLitePCLRaw.bundle_winsqlite3">
-      <Version>2.0.4</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="DataAccessLibrary\DataAccessLibrary\DataAccessLibrary.csproj">
-      <Project>{60db0a88-9547-446e-aa11-a309720d84c0}</Project>
+    <ProjectReference Include="DataAccessLibrary\DataAccessLibrary.csproj">
+      <Project>{29d54a42-2fbd-47cf-b150-ba0b33f7fbef}</Project>
       <Name>DataAccessLibrary</Name>
     </ProjectReference>
   </ItemGroup>
