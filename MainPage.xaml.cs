@@ -21,7 +21,7 @@ namespace Pane
         {
             DataAccess.AddData(Input_Box.Text);
 
-            Output.ItemsSource = DataAccess.GetData();
+            //Output.ItemsSource = DataAccess.GetData();
         }
     }
 }
