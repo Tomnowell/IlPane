@@ -29,6 +29,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -156,13 +157,16 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
     </PackageReference>
+    <PackageReference Include="SQLitePCLRaw.bundle_winsqlite3">
+      <Version>2.0.4</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="DataAccessLibrary\DataAccessLibrary.csproj">
-      <Project>{29d54a42-2fbd-47cf-b150-ba0b33f7fbef}</Project>
+    <ProjectReference Include="..\DataAccessLibrary\DataAccessLibrary.csproj">
+      <Project>{021f6f1b-4a06-4c6b-993f-1bdbeb9920dc}</Project>
       <Name>DataAccessLibrary</Name>
     </ProjectReference>
   </ItemGroup>

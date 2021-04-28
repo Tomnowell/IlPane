@@ -21,7 +21,7 @@
                 <!-- Loaf by ingredients-->
                 <StackPanel Grid.Column="0" Margin="0 0 5 0">
                     <TextBlock MaxWidth="300" HorizontalAlignment="Center"> Ingredients</TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FlourWeight" PlaceholderText="Flour weight"></TextBox>
+                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" PlaceholderText="Flour weight" Name="Input_Box"></TextBox>
                     <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FatWeight" PlaceholderText="Fat weight"></TextBox>
                     <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="SaltWeight" PlaceholderText="Salt weight"></TextBox>
                     <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="WaterWeight" PlaceholderText="Water weight"></TextBox>
