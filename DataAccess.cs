@@ -22,10 +22,23 @@ namespace Pane
                 db.Open();
 
                 String tableCommand = "CREATE TABLE IF NOT " +
-                    "EXISTS MyTable (Primary_Key INTEGER PRIMARY KEY, " +
-                    "Text_Entry NVARCHAR(2048) NULL)";
+                    "EXISTS recipeTable " +
+                    "(Primary_Key INTEGER PRIMARY KEY, " +
+                    "totalWeight REAL " +
+                    "flourWeight REAL" +
+                    "waterWeight REAL" +
+                    "saltWeight REAL" +
+                    "otherDryWeight REAL" +
+                    "otherWetWeight REAL" +
+                    "bakerPercent REAL" +
+                    "ratio REAL" +
+                    "saltPercent REAL" +
+                    "otherDryPercent REAL" +
+                    "totalDryWeight REAL" +
+                    "totalWetWeight REAL" +
+                    "notes TEXT)";    
 
-                SqliteCommand createTable = new SqliteCommand(tableCommand, db);
+        SqliteCommand createTable = new SqliteCommand(tableCommand, db);
 
                 createTable.ExecuteReader();
             }
@@ -43,7 +56,7 @@ namespace Pane
                 insertCommand.Connection = db;
 
                 // Use parameterized query to prevent SQL injection attacks
-                insertCommand.CommandText = "INSERT INTO MyTable VALUES (NULL, @Entry);";
+                insertCommand.CommandText = "INSERT INTO recipeTable VALUES (NULL, @Entry);";
                 insertCommand.Parameters.AddWithValue("@Entry", inputText);
 
                 insertCommand.ExecuteReader();
