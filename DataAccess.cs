@@ -22,7 +22,7 @@ namespace Pane
                 db.Open();
 
                 String tableCommand = "CREATE TABLE IF NOT " +
-                    "EXISTS MyTable (Primary_Key INTEGER PRIMARY KEY, " +
+                    "EXISTS recipeTable (Primary_Key INTEGER PRIMARY KEY, " +
                     "Text_Entry NVARCHAR(2048) NULL)";
 
                 SqliteCommand createTable = new SqliteCommand(tableCommand, db);
@@ -43,7 +43,7 @@ namespace Pane
                 insertCommand.Connection = db;
 
                 // Use parameterized query to prevent SQL injection attacks
-                insertCommand.CommandText = "INSERT INTO MyTable VALUES (NULL, @Entry);";
+                insertCommand.CommandText = "INSERT INTO recipeTable VALUES (NULL, @Entry);";
                 insertCommand.Parameters.AddWithValue("@Entry", inputText);
 
                 insertCommand.ExecuteReader();
