@@ -22,10 +22,23 @@ namespace Pane
                 db.Open();
 
                 String tableCommand = "CREATE TABLE IF NOT " +
-                    "EXISTS recipeTable (Primary_Key INTEGER PRIMARY KEY, " +
-                    "Text_Entry NVARCHAR(2048) NULL)";
+                    "EXISTS recipeTable " +
+                    "(Primary_Key INTEGER PRIMARY KEY, " +
+                    "totalWeight REAL " +
+                    "flourWeight REAL" +
+                    "waterWeight REAL" +
+                    "saltWeight REAL" +
+                    "otherDryWeight REAL" +
+                    "otherWetWeight REAL" +
+                    "bakerPercent REAL" +
+                    "ratio REAL" +
+                    "saltPercent REAL" +
+                    "otherDryPercent REAL" +
+                    "totalDryWeight REAL" +
+                    "totalWetWeight REAL" +
+                    "notes TEXT)";    
 
-                SqliteCommand createTable = new SqliteCommand(tableCommand, db);
+        SqliteCommand createTable = new SqliteCommand(tableCommand, db);
 
                 createTable.ExecuteReader();
             }
