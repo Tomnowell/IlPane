@@ -8,6 +8,8 @@ namespace Pane
 {
     public class Loaf
     {
+        public Loaf() { }
+
         private float totalWeight = 0.0F;
         private float flourWeight = 0.0F;
         private float waterWeight = 0.0F;
