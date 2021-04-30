@@ -142,7 +142,8 @@ namespace Pane
         {
             //Check if weights can calculate a ratio.  Consider using exceptions to 
             //return more specific information if values are invalid
-            if (this.FlourWeight > 0.00 && this.WaterWeight > 0.00)
+            if (this.FlourWeight > 0.00 && 
+                (this.WaterWeight > 0.00 || (this.ratio > 0 && this.ratio < 100)))
             {
                 return true;
             }

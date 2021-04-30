@@ -22,13 +22,27 @@ namespace Pane
 
             Output.ItemsSource = DataAccess.GetData(0);
         }
-        private void Calculate(object sender, RoutedEventArgs e)
+        private void Calculate (object sender, RoutedEventArgs e)
+        { 
+            Loaf currentLoaf = new Loaf(RecipeName.Text, ValidateFloat(FlourWeight.Text),
+                ValidateFloat(TotalWeight.Text), ValidateFloat(WaterWeight.Text),
+                ValidateFloat(SaltWeight.Text), ValidateFloat(OtherDryWeight.Text),
+                ValidateFloat(OtherWetWeight.Text), ValidateFloat(LoafRatio.Text),
+                ValidateFloat(SaltPercent.Text), ValidateFloat(OtherDryPercent.Text), Notes.Text);
+        }
+
+        private float ValidateFloat(string input)
         {
-            Loaf currentLoaf = new Loaf(RecipeName.Text, Convert.ToSingle(FlourWeight.Text), 
-                Convert.ToSingle(TotalWeight.Text), Convert.ToSingle(WaterWeight.Text),
-                Convert.ToSingle(SaltWeight.Text), Convert.ToSingle(OtherDryWeight.Text),
-                Convert.ToSingle(OtherWetWeight.Text), Convert.ToSingle(LoafRatio.Text),
-                Convert.ToSingle(SaltPercent.Text), Convert.ToSingle(OtherDryPercent.Text), Notes.Text);
+            
+            try
+            {
+                float temp = (float)Convert.ToDouble(input);
+                return temp;
+            }
+            catch (FormatException)
+            {
+                    return 0.00F;
+            }
         }
     }
 }
