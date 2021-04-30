@@ -15,6 +15,7 @@ namespace Pane
     {
         const string DBTEMPLATE =
                     "(Primary_Key INTEGER PRIMARY KEY, " +
+                    "recipeName TEXT" +
                     "totalWeight REAL " +
                     "flourWeight REAL" +
                     "waterWeight REAL" +
@@ -30,8 +31,9 @@ namespace Pane
                     "notes TEXT)";
         public async static void InitializeDatabase()
         {
-            await ApplicationData.Current.LocalFolder.CreateFileAsync("sqliteSample.db", CreationCollisionOption.OpenIfExists);
-            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "sqliteSample.db");
+            Console.WriteLine("initializing database...");
+            await ApplicationData.Current.LocalFolder.CreateFileAsync("BreadRecipes.db", CreationCollisionOption.OpenIfExists);
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
             using (SqliteConnection db =
                new SqliteConnection($"Filename={dbpath}"))
             {
@@ -48,7 +50,7 @@ namespace Pane
 
         public static void AddData(string inputText)
         {
-            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "sqliteSample.db");
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
             using (SqliteConnection db =
               new SqliteConnection($"Filename={dbpath}"))
             {
@@ -71,8 +73,8 @@ namespace Pane
         public static Loaf GetData(int primaryKey)
         {
             List<String> entries = new List<string>();
-
-            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "sqliteSample.db");
+            Loaf aLoaf = new Loaf();
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
             using (SqliteConnection db =
                new SqliteConnection($"Filename={dbpath}"))
             {
@@ -82,12 +84,12 @@ namespace Pane
                 selectCommand.Connection = db;
 
                 // Use parameterized query to prevent SQL injection attacks
-                selectCommand.CommandText = "SELECT * from recipeTable WHERE Primary_Key = VALUES(@key);");
+                selectCommand.CommandText = "SELECT * from recipeTable WHERE Primary_Key = VALUES(@key);";
                 selectCommand.Parameters.AddWithValue("@key", primaryKey);
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
                 Console.Write(query);
-                Loaf currentLoaf = new Loaf();
+                
                 while (query.Read())
                 {
                     //Here make a Loaf object and copy data from reader.
@@ -98,8 +100,8 @@ namespace Pane
 
                 db.Close();
             }
-
-            return currentLoaf;
+            
+            return aLoaf;
         }
 
     }
