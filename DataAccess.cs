@@ -10,20 +10,12 @@ using Windows.Storage;
 
 namespace Pane
 {
+
     public static class DataAccess
     {
-        public async static void InitializeDatabase()
-        {
-            await ApplicationData.Current.LocalFolder.CreateFileAsync("sqliteSample.db", CreationCollisionOption.OpenIfExists);
-            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "sqliteSample.db");
-            using (SqliteConnection db =
-               new SqliteConnection($"Filename={dbpath}"))
-            {
-                db.Open();
-
-                String tableCommand = "CREATE TABLE IF NOT " +
-                    "EXISTS recipeTable " +
+        const string DBTEMPLATE =
                     "(Primary_Key INTEGER PRIMARY KEY, " +
+                    "recipeName TEXT" +
                     "totalWeight REAL " +
                     "flourWeight REAL" +
                     "waterWeight REAL" +
@@ -36,17 +28,29 @@ namespace Pane
                     "otherDryPercent REAL" +
                     "totalDryWeight REAL" +
                     "totalWetWeight REAL" +
-                    "notes TEXT)";    
+                    "notes TEXT)";
+        public async static void InitializeDatabase()
+        {
+            Console.WriteLine("initializing database...");
+            await ApplicationData.Current.LocalFolder.CreateFileAsync("BreadRecipes.db", CreationCollisionOption.OpenIfExists);
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
+            using (SqliteConnection db =
+               new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
 
-        SqliteCommand createTable = new SqliteCommand(tableCommand, db);
+                String tableCommand = "CREATE TABLE IF NOT " +
+                    "EXISTS recipeTable " +
+                    DBTEMPLATE;    
 
+                SqliteCommand createTable = new SqliteCommand(tableCommand, db);
                 createTable.ExecuteReader();
             }
         }
 
         public static void AddData(string inputText)
         {
-            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "sqliteSample.db");
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
             using (SqliteConnection db =
               new SqliteConnection($"Filename={dbpath}"))
             {
@@ -60,37 +64,44 @@ namespace Pane
                 insertCommand.Parameters.AddWithValue("@Entry", inputText);
 
                 insertCommand.ExecuteReader();
-
                 db.Close();
             }
 
         }
 
 
-        public static List<String> GetData()
+        public static Loaf GetData(int primaryKey)
         {
             List<String> entries = new List<string>();
-
-            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "sqliteSample.db");
+            Loaf aLoaf = new Loaf();
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
             using (SqliteConnection db =
                new SqliteConnection($"Filename={dbpath}"))
             {
                 db.Open();
 
-                SqliteCommand selectCommand = new SqliteCommand
-                    ("SELECT Text_Entry from MyTable", db);
+                SqliteCommand selectCommand = new SqliteCommand();
+                selectCommand.Connection = db;
+
+                // Use parameterized query to prevent SQL injection attacks
+                selectCommand.CommandText = "SELECT * from recipeTable WHERE Primary_Key = VALUES(@key);";
+                selectCommand.Parameters.AddWithValue("@key", primaryKey);
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
-
+                Console.Write(query);
+                
                 while (query.Read())
                 {
+                    //Here make a Loaf object and copy data from reader.
+                    
+                    //currentLoaf.TotalWeight = query["totalWeight"];
                     entries.Add(query.GetString(0));
                 }
 
                 db.Close();
             }
-
-            return entries;
+            
+            return aLoaf;
         }
 
     }

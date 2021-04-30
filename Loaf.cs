@@ -8,20 +8,52 @@ namespace Pane
 {
     public class Loaf
     {
-        private float totalWeight = 0.0F;
-        private float flourWeight = 0.0F;
-        private float waterWeight = 0.0F;
-        private float saltWeight = 0.0F;
-        private float otherDryWeight = 0.0F;
-        private float otherWetWeight = 0.0F;
-        private float bakerPercent = 0.0F;
-        private float ratio = 0.0F;
-        private float saltPercent = 0.0F;
-        private float otherDryPercent = 0.0F;
+        public Loaf() { }
+
+        public Loaf(string recipeName, float flourWeight, float totalWeight, float waterWeight, 
+            float saltWeight, float otherDryWeight, float otherWetWeight, float ratio, 
+            float saltPercent, float otherDryPercent, string notes)
+        {
+            RecipeName = recipeName;
+            FlourWeight = flourWeight;
+            TotalWeight = totalWeight;
+            WaterWeight = waterWeight;
+            SaltWeight = saltWeight;
+            OtherDryWeight = otherDryWeight;
+            OtherWetWeight = otherWetWeight;
+            Ratio = ratio;
+            SaltPercent = saltPercent;
+            OtherDryPercent = otherDryPercent;
+            Notes = notes;
+            
+
+            if(this.IsValidWeights())
+            {
+                CalculateRatiosFromWeights();
+            }
+            else if (this.IsValidRatios())
+            {
+                CalculateRatiosFromWeights();
+            }
+            else throw new ArgumentException("Parameters are invalid", this.RecipeName);
+        }
+
+        private string recipeName;
+
+        private float totalWeight;
+        private float flourWeight;
+        private float waterWeight;
+        private float saltWeight;
+        private float otherDryWeight;
+        private float otherWetWeight;
+        private float bakerPercent;
+        private float ratio;
+        private float saltPercent;
+        private float otherDryPercent;
 
 
-        private float totalDryWeight = 0.0F;
-        private float totalWetWeight = 0.0F;
+        private float totalDryWeight;
+        private float totalWetWeight;
 
 
         private string notes = "";
@@ -39,7 +71,7 @@ namespace Pane
         public string Notes { get => notes; set => notes = value; }
         public float TotalDryWeight { get => totalDryWeight; set => totalDryWeight = value; }
         public float TotalWetWeight { get => totalWetWeight; set => totalWetWeight = value; }
-        
+        public string RecipeName { get => recipeName; set => recipeName = value; }
 
         public void CalculateDryWeight()
         {
@@ -110,7 +142,8 @@ namespace Pane
         {
             //Check if weights can calculate a ratio.  Consider using exceptions to 
             //return more specific information if values are invalid
-            if (this.FlourWeight > 0.00 && this.WaterWeight > 0.00)
+            if (this.FlourWeight > 0.00 && 
+                (this.WaterWeight > 0.00 || (this.ratio > 0 && this.ratio < 100)))
             {
                 return true;
             }
