@@ -60,6 +60,8 @@ namespace Pane
             SaltPercent = saltPercent;
             OtherDryPercent = otherDryPercent;
             Notes = notes;
+
+            this.InitializeLoaf();
         }
 
 
@@ -71,7 +73,7 @@ namespace Pane
             }
             else if (this.IsValidRatios())
             {
-                CalculateRatiosFromWeights();
+                CalculateWeightsFromRatios();
             }
             else throw new ArgumentException("Parameters are invalid", this.RecipeName);
         }
@@ -111,6 +113,7 @@ namespace Pane
             else
             {
                 // INVALID WEIGHTS
+                throw new ArgumentException("Invalid weights", this.RecipeName);
             }
 
         }
@@ -124,18 +127,32 @@ namespace Pane
                 {
                     // Calculate salt by ratio (ratio has been set)
                     this.BakerPercent = 100 + this.Ratio + this.SaltPercent + this.OtherDryPercent;
-                    this.TotalDryWeight = this.TotalWeight / (this.Ratio / 100);
-                    this.TotalWetWeight = this.Ratio / 100 * this.TotalDryWeight;
+                    this.FlourWeight = this.TotalWeight * (this.Ratio / 100);
+                    this.SaltWeight = this.TotalWeight * (this.saltPercent / 100);
+                    if (this.OtherDryPercent > 0)
+                    {
+                        this.OtherDryWeight = this.TotalWeight / (this.OtherDryPercent / 100);
+                    }
+                    this.totalDryWeight = this.FlourWeight + this.SaltWeight + this.OtherDryWeight;
+                    this.TotalWetWeight = (this.Ratio / 100) * this.TotalDryWeight;
                 }
                 else
                 {
                     // Calculate salt by weight (ratio not set)
                     this.BakerPercent = 100 + this.Ratio + this.OtherDryPercent;
-                    this.TotalDryWeight = this.TotalWeight / (this.Ratio / 100);
-                    this.TotalWetWeight = this.Ratio / 100 * this.TotalDryWeight;
-                    this.SaltPercent = this.SaltWeight / this.totalDryWeight * 100;
+                    this.FlourWeight = this.TotalWeight * (this.Ratio / 100);
+
+                    this.TotalDryWeight = this.FlourWeight + this.SaltWeight + this.OtherDryWeight;
+                    this.TotalWetWeight = (this.Ratio / 100) * this.TotalDryWeight;
+
+                    this.SaltPercent = (this.SaltWeight / this.totalDryWeight) * 100;
                 }
 
+            }
+            else
+            {
+                //Invalid Ratios
+                throw new ArgumentException("Invalid Ratios", this.RecipeName);
             }
 
         }
@@ -157,7 +174,7 @@ namespace Pane
             //Check if given values can calculate weights.  Consider using exceptions to 
             //return more specific information if values are invalid
             //
-            if (this.TotalWeight > 0 && (this.Ratio > 0.00 && this.Ratio < 100))
+            if ((this.TotalWeight > 0 || this.FlourWeight > 0 ) && (this.Ratio > 0.00 && this.Ratio < 100))
             {
                 return true;
             }

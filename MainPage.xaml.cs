@@ -24,12 +24,14 @@ namespace Pane
         }
         private void Calculate (object sender, RoutedEventArgs e)
         { 
+            // Process the UI inputs
             Loaf currentLoaf = new Loaf(RecipeName.Text, ValidateFloat(FlourWeight.Text),
                 ValidateFloat(TotalWeight.Text), ValidateFloat(WaterWeight.Text),
                 ValidateFloat(SaltWeight.Text), ValidateFloat(OtherDryWeight.Text),
                 ValidateFloat(OtherWetWeight.Text), ValidateFloat(Ratio.Text),
                 ValidateFloat(SaltPercent.Text), ValidateFloat(OtherDryPercent.Text), Notes.Text);
-            currentLoaf.InitializeLoaf();
+
+            // Refresh the UI
             DisplayLoaf(currentLoaf);
         }
 
