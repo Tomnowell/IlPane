@@ -65,6 +65,7 @@
             </ListView>
             <Border Padding="0 10 0 0"></Border>
             <Button HorizontalAlignment="Center" MaxWidth="300" Margin ="100 0 100 0" Name="Save" Click="AddData">Save</Button>
+            <Button HorizontalAlignment="Center" MaxWidth="300" Margin ="100 0 100 0" Name="Load">Load</Button>
             <Border Padding="0 10 0 0"></Border>
             <Button HorizontalAlignment="Center" MaxWidth="300" Margin ="100 0 100 0" Name="Delete">Delete</Button>
         </StackPanel>

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 using Microsoft.Data.Sqlite;
 using Windows.Storage;
 
@@ -13,22 +14,22 @@ namespace Pane
 
     public static class DataAccess
     {
-        const string DBTEMPLATE =
-                    "(Primary_Key INTEGER PRIMARY KEY, " +
-                    "recipeName TEXT" +
-                    "totalWeight REAL " +
-                    "flourWeight REAL" +
-                    "waterWeight REAL" +
-                    "saltWeight REAL" +
-                    "otherDryWeight REAL" +
-                    "otherWetWeight REAL" +
-                    "bakerPercent REAL" +
-                    "ratio REAL" +
-                    "saltPercent REAL" +
-                    "otherDryPercent REAL" +
-                    "totalDryWeight REAL" +
-                    "totalWetWeight REAL" +
-                    "notes TEXT)";
+        const string DBTEMPLATE = "(\"Key\"	INTEGER NOT NULL," +
+            "\"Name\"	            TEXT NOT NULL," +
+            "\"TotalWeight\"	    REAL," +
+            "\"FlourWeight\"	    REAL," +
+            "\"WaterWeight\"	    REAL," +
+            "\"SaltWeight\"	        REAL," +
+            "\"OtherDryWeight\"	    REAL," +
+            "\"OtherWetWeight\"	    REAL," +
+            "\"Ratio\"	            REAL," +
+            "\"SaltPercent\"	    REAL," +
+            "\"OtherDryPercent\"	REAL," +
+            "\"TotalDryWeight\"	    REAL," +
+            "\"TotalWetWeight\"	    REAL," +
+            "\"Notes\"	            TEXT," +
+            "PRIMARY KEY(\"key\"    AUTOINCREMENT));";
+
         public async static void InitializeDatabase()
         {
             Console.WriteLine("initializing database...");
@@ -39,16 +40,14 @@ namespace Pane
             {
                 db.Open();
 
-                String tableCommand = "CREATE TABLE IF NOT " +
-                    "EXISTS recipeTable " +
-                    DBTEMPLATE;    
+                String tableCommand = "CREATE TABLE IF NOT EXISTS \"recipeTable\"" + DBTEMPLATE;    
 
                 SqliteCommand createTable = new SqliteCommand(tableCommand, db);
                 createTable.ExecuteReader();
             }
         }
 
-        public static void AddData(string inputText)
+        public static void AddData(Loaf currentLoaf)
         {
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
             using (SqliteConnection db =
@@ -56,14 +55,29 @@ namespace Pane
             {
                 db.Open();
 
+                // Use parameterized query to prevent SQL injection attacks
                 SqliteCommand insertCommand = new SqliteCommand();
                 insertCommand.Connection = db;
-
-                // Use parameterized query to prevent SQL injection attacks
-                insertCommand.CommandText = "INSERT INTO recipeTable VALUES (NULL, @Entry);";
-                insertCommand.Parameters.AddWithValue("@Entry", inputText);
+                insertCommand.CommandText = "INSERT INTO recipeTable VALUES (NULL,@Name,"+
+                    "@TotalWeight, @FlourWeight, @WaterWeight, @SaltWeight, @OtherDryWeight," +
+                    "@OtherWetWeight, @Ratio, @BakerPercent, @SaltPercent, @OtherDryPercent," +
+                    "@TotalDryWeight, @TotalWetWeight);";
+                insertCommand.Parameters.AddWithValue("@Name",currentLoaf.RecipeName);
+                insertCommand.Parameters.AddWithValue("TotalWeight", currentLoaf.TotalWeight);
+                insertCommand.Parameters.AddWithValue("FlourWeight", currentLoaf.FlourWeight);
+                insertCommand.Parameters.AddWithValue("WaterWeight", currentLoaf.WaterWeight);
+                insertCommand.Parameters.AddWithValue("SaltWeight", currentLoaf.SaltWeight);
+                insertCommand.Parameters.AddWithValue("OtherDryWeight", currentLoaf.OtherDryWeight);
+                insertCommand.Parameters.AddWithValue("OtherWetWeight", currentLoaf.OtherWetWeight);
+                insertCommand.Parameters.AddWithValue("Ratio", currentLoaf.Ratio);
+                insertCommand.Parameters.AddWithValue("BakerPercent", currentLoaf.BakerPercent);
+                insertCommand.Parameters.AddWithValue("SaltPercent", currentLoaf.SaltPercent);
+                insertCommand.Parameters.AddWithValue("OtherDryPercent", currentLoaf.OtherDryPercent);
+                insertCommand.Parameters.AddWithValue("TotalDryWeight", currentLoaf.TotalDryWeight);
+                insertCommand.Parameters.AddWithValue("TotalWetWeight", currentLoaf.TotalWetWeight);
 
                 insertCommand.ExecuteReader();
+
                 db.Close();
             }
 
