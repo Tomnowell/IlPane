@@ -8,36 +8,6 @@ namespace Pane
 {
     public class Loaf
     {
-        public Loaf() { }
-
-        public Loaf(string recipeName, float flourWeight, float totalWeight, float waterWeight, 
-            float saltWeight, float otherDryWeight, float otherWetWeight, float ratio, 
-            float saltPercent, float otherDryPercent, string notes)
-        {
-            RecipeName = recipeName;
-            FlourWeight = flourWeight;
-            TotalWeight = totalWeight;
-            WaterWeight = waterWeight;
-            SaltWeight = saltWeight;
-            OtherDryWeight = otherDryWeight;
-            OtherWetWeight = otherWetWeight;
-            Ratio = ratio;
-            SaltPercent = saltPercent;
-            OtherDryPercent = otherDryPercent;
-            Notes = notes;
-            
-
-            if(this.IsValidWeights())
-            {
-                CalculateRatiosFromWeights();
-            }
-            else if (this.IsValidRatios())
-            {
-                CalculateRatiosFromWeights();
-            }
-            else throw new ArgumentException("Parameters are invalid", this.RecipeName);
-        }
-
         private string recipeName;
 
         private float totalWeight;
@@ -73,6 +43,38 @@ namespace Pane
         public float TotalWetWeight { get => totalWetWeight; set => totalWetWeight = value; }
         public string RecipeName { get => recipeName; set => recipeName = value; }
 
+        public Loaf() { }
+
+        public Loaf(string recipeName, float flourWeight, float totalWeight, float waterWeight,
+            float saltWeight, float otherDryWeight, float otherWetWeight, float ratio,
+            float saltPercent, float otherDryPercent, string notes)
+        {
+            RecipeName = recipeName;
+            FlourWeight = flourWeight;
+            TotalWeight = totalWeight;
+            WaterWeight = waterWeight;
+            SaltWeight = saltWeight;
+            OtherDryWeight = otherDryWeight;
+            OtherWetWeight = otherWetWeight;
+            Ratio = ratio;
+            SaltPercent = saltPercent;
+            OtherDryPercent = otherDryPercent;
+            Notes = notes;
+        }
+
+
+        public void InitializeLoaf()
+        {
+            if (this.IsValidWeights())
+            {
+                CalculateRatiosFromWeights();
+            }
+            else if (this.IsValidRatios())
+            {
+                CalculateRatiosFromWeights();
+            }
+            else throw new ArgumentException("Parameters are invalid", this.RecipeName);
+        }
         public void CalculateDryWeight()
         {
             this.TotalDryWeight = FlourWeight + SaltWeight + OtherDryWeight;

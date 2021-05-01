@@ -27,8 +27,26 @@ namespace Pane
             Loaf currentLoaf = new Loaf(RecipeName.Text, ValidateFloat(FlourWeight.Text),
                 ValidateFloat(TotalWeight.Text), ValidateFloat(WaterWeight.Text),
                 ValidateFloat(SaltWeight.Text), ValidateFloat(OtherDryWeight.Text),
-                ValidateFloat(OtherWetWeight.Text), ValidateFloat(LoafRatio.Text),
+                ValidateFloat(OtherWetWeight.Text), ValidateFloat(Ratio.Text),
                 ValidateFloat(SaltPercent.Text), ValidateFloat(OtherDryPercent.Text), Notes.Text);
+            currentLoaf.InitializeLoaf();
+            DisplayLoaf(currentLoaf);
+        }
+
+        private void DisplayLoaf(Loaf currentLoaf)
+        {
+            // Update UI textboxes with the values in currentLoaf
+
+            RecipeName.Text = currentLoaf.RecipeName;
+            FlourWeight.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.FlourWeight));
+            TotalWeight.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.TotalWeight));
+            WaterWeight.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.WaterWeight));
+            SaltWeight.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.SaltWeight));
+            OtherDryWeight.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.OtherDryWeight));
+            OtherWetWeight.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.OtherWetWeight));
+            Ratio.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.Ratio));
+            OtherDryPercent.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.OtherDryPercent));
+            Notes.Text = currentLoaf.Notes;
         }
 
         private float ValidateFloat(string input)
