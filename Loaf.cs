@@ -104,11 +104,14 @@ namespace Pane
                 //** Baking tip **
                 // Bakers measure hydration as a ratio of dry to wet ingredients
                 // Usually flour & salt to water
-                this.ratio = 100 * TotalWetWeight / TotalDryWeight;
+                this.Ratio = (this.FlourWeight * 100) / this.TotalWeight;
 
                 //** Baking tip **
                 // Bakers measure salt as a percentage of the flour weight, not total weight
-                if (SaltWeight > 0) { this.saltPercent = 100 * SaltWeight / FlourWeight; }
+                if (this.SaltWeight > 0) 
+                { 
+                    this.SaltPercent = (this.SaltWeight / this.FlourWeight) * 100; 
+                }
             }
             else
             {
@@ -128,13 +131,14 @@ namespace Pane
                     // Calculate salt by ratio (ratio has been set)
                     this.BakerPercent = 100 + this.Ratio + this.SaltPercent + this.OtherDryPercent;
                     this.FlourWeight = this.TotalWeight * (this.Ratio / 100);
-                    this.SaltWeight = this.TotalWeight * (this.saltPercent / 100);
+                    this.SaltWeight = this.FlourWeight * (this.SaltPercent / 100);
                     if (this.OtherDryPercent > 0)
                     {
-                        this.OtherDryWeight = this.TotalWeight / (this.OtherDryPercent / 100);
+                        this.OtherDryWeight = this.FlourWeight / (this.OtherDryPercent / 100);
                     }
-                    this.totalDryWeight = this.FlourWeight + this.SaltWeight + this.OtherDryWeight;
-                    this.TotalWetWeight = (this.Ratio / 100) * this.TotalDryWeight;
+                    this.TotalDryWeight = this.FlourWeight + this.SaltWeight + this.OtherDryWeight;
+                    this.TotalWetWeight = this.TotalWeight - this.TotalDryWeight;
+                    this.WaterWeight = this.totalWetWeight - this.OtherWetWeight;
                 }
                 else
                 {
@@ -143,9 +147,11 @@ namespace Pane
                     this.FlourWeight = this.TotalWeight * (this.Ratio / 100);
 
                     this.TotalDryWeight = this.FlourWeight + this.SaltWeight + this.OtherDryWeight;
-                    this.TotalWetWeight = (this.Ratio / 100) * this.TotalDryWeight;
 
-                    this.SaltPercent = (this.SaltWeight / this.totalDryWeight) * 100;
+                    this.TotalWetWeight = this.TotalWeight - this.TotalDryWeight;
+                    this.WaterWeight = this.totalWetWeight - this.OtherWetWeight;
+
+                    this.SaltPercent = (this.SaltWeight / this.FlourWeight) * 100;
                 }
 
             }

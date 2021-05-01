@@ -21,24 +21,32 @@
 
                 <!-- Loaf by ingredients-->
                 <StackPanel Grid.Column="0" Margin="0 0 5 0">
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Center"> Ingredients</TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="RecipeName" PlaceholderText="Recipe Name" InputScope="Default"></TextBox>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="FlourWeight" PlaceholderText="Flour weight" InputScope="Number"></TextBox>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="TotalWeight" PlaceholderText="Total weight" InputScope="Number"></TextBox>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="WaterWeight" PlaceholderText="Water weight" InputScope="Number"></TextBox>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="SaltWeight" PlaceholderText="Salt weight" InputScope="Number"></TextBox>
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Name:</TextBlock>
+                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="RecipeName" PlaceholderText="Recipe Name" InputScope="Default"></TextBox>
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Total(g):</TextBlock>
+                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="TotalWeight" PlaceholderText="Total weight" InputScope="Number"></TextBox>
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Flour(g):</TextBlock>
+                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="FlourWeight" PlaceholderText="Flour weight" InputScope="Number"></TextBox>
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Water(g/ml):</TextBlock>
+                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="WaterWeight" PlaceholderText="Water weight" InputScope="Number"></TextBox>
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Salt(g):</TextBlock>
+                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="SaltWeight" PlaceholderText="Salt weight" InputScope="Number"></TextBox>
                     
 
                 </StackPanel>
 
                 <!--Loaf by ratio-->
                 <StackPanel Grid.Column="1" Margin="5 0 0 0" >
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Center"></TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="OtherDryWeight" PlaceholderText="Other dry weight" InputScope="Number"></TextBox>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="OtherWetWeight" PlaceholderText="Other dry weight" InputScope="Number"></TextBox>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="Ratio" PlaceholderText="Loaf Ratio" InputScope="Number"></TextBox>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="SaltPercent" PlaceholderText="Salt Percentage" InputScope="Number"></TextBox>
-                    <TextBox MaxWidth="300" Margin ="0 10 0 10" Padding="0 2 2 0" Name="OtherDryPercent" PlaceholderText="Other dry ratio" InputScope="Number"></TextBox>
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Center">Other dry(g):</TextBlock>
+                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="OtherDryWeight" PlaceholderText="Other dry weight" InputScope="Number"></TextBox>
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Other wet (g):</TextBlock>
+                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="OtherWetWeight" PlaceholderText="Other dry weight" InputScope="Number"></TextBox>
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Baker's(%):</TextBlock>
+                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="Ratio" PlaceholderText="Loaf Ratio" InputScope="Number"></TextBox>
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Salt(%):</TextBlock>
+                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="SaltPercent" PlaceholderText="Salt Percentage" InputScope="Number"></TextBox>
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Other dry(%):</TextBlock>
+                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="OtherDryPercent" PlaceholderText="Other dry ratio" InputScope="Number"></TextBox>
                 </StackPanel>
 
 
