@@ -47,6 +47,7 @@ namespace Pane
             OtherDryWeight.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.OtherDryWeight));
             OtherWetWeight.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.OtherWetWeight));
             Ratio.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.Ratio));
+            SaltPercent.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.SaltPercent));
             OtherDryPercent.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.OtherDryPercent));
             Notes.Text = currentLoaf.Notes;
         }

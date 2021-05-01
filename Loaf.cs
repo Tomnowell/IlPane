@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace Pane
 {
@@ -75,7 +76,10 @@ namespace Pane
             {
                 CalculateWeightsFromRatios();
             }
-            else throw new ArgumentException("Parameters are invalid", this.RecipeName);
+            else
+            {
+                var messageDialog = new MessageDialog("Invalid weights or ratios."); ;
+            }
         }
         public void CalculateDryWeight()
         {
@@ -99,7 +103,10 @@ namespace Pane
             if (this.IsValidWeights())
             {
                 // Calculate values
-                this.CalculateTotalWeight();
+                if (this.waterWeight > 0)
+                {
+                    this.CalculateTotalWeight();
+                }
 
                 //** Baking tip **
                 // Bakers measure hydration as a ratio of dry to wet ingredients
@@ -112,6 +119,7 @@ namespace Pane
                 { 
                     this.SaltPercent = (this.SaltWeight / this.FlourWeight) * 100; 
                 }
+                this.CalculateWeightsFromRatios();
             }
             else
             {
@@ -169,6 +177,10 @@ namespace Pane
             //return more specific information if values are invalid
             if (this.FlourWeight > 0.00 && 
                 (this.WaterWeight > 0.00 || (this.ratio > 0 && this.ratio < 100)))
+            {
+                return true;
+            }
+            else if (this.FlourWeight > 0.00 && this.TotalWeight > this.FlourWeight)
             {
                 return true;
             }

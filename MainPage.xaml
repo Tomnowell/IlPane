@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="400" Height="600">
-    <Border Padding="10 20 10 5">
+    <Border Padding="10 15 5 5">
         <StackPanel>
             <TextBlock HorizontalAlignment="Center" FontSize="24" FontWeight="Bold">Il Pane</TextBlock>
             <Border Padding="0 20 0 0"></Border>
@@ -37,7 +37,7 @@
 
                 <!--Loaf by ratio-->
                 <StackPanel Grid.Column="1" Margin="5 0 0 0" >
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Center">Other dry(g):</TextBlock>
+                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Other dry(g):</TextBlock>
                     <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="OtherDryWeight" PlaceholderText="Other dry weight" InputScope="Number"></TextBox>
                     <TextBlock MaxWidth="300" HorizontalAlignment="Left">Other wet (g):</TextBlock>
                     <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="OtherWetWeight" PlaceholderText="Other dry weight" InputScope="Number"></TextBox>
@@ -52,10 +52,10 @@
 
 
             </Grid>
-            <Border Padding="0 30 0 0"/>
+            <Border Padding="0 20 0 0"/>
             <Button HorizontalAlignment="Center" MaxWidth="300" Margin ="100 0 100 0" Name="Calc" Click="Calculate">Calculate</Button>
-            <Border Padding="0 30 0 0"></Border>
-            <TextBox Margin="50 0 50 0" MaxWidth="300" MinHeight="100" Name="Notes" AcceptsReturn="True" InputScope="Default" PlaceholderText="Notes..." Height="71"></TextBox>
+            <Border Padding="0 20 0 0"></Border>
+            <TextBox Margin="5 0 5 0" MaxWidth="300" MinHeight="100" Name="Notes" AcceptsReturn="True" InputScope="Default" PlaceholderText="Notes..." Height="71"></TextBox>
             <ListView Name="Output">
                 <ListView.ItemTemplate>
                     <DataTemplate>
