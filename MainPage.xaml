@@ -6,69 +6,94 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="400" Height="600">
-    <Border Padding="10 15 5 5">
-        <StackPanel>
-            <TextBlock HorizontalAlignment="Center" FontSize="24" FontWeight="Bold">Il Pane</TextBlock>
-            <Border Padding="0 20 0 0"></Border>
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="600" Height="600">
+    <Border Padding="1 1 1 1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width = "*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock HorizontalAlignment="Center" FontSize="24" FontWeight="Bold"> Il Pane</TextBlock>
+            </StackPanel>
             <Grid>
-
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width = "200" />
+                    <ColumnDefinition Width = "*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Margin="10 60 10 140" Padding="1 1 1 1">
+                    <Border BorderBrush="Bisque" BorderThickness="3">
+                        <ListView Name="Output">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Border>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Margin="10 20 10 10" Padding="1 1 1 1">
+                    <Border Padding="1 1 1 1"></Border>
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width = "*" />
+                            <ColumnDefinition Width = "*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Loaf by ingredients-->
+                        <StackPanel Grid.Column="0" Margin="10 20 10 10">
+                            <TextBlock MaxWidth="300" HorizontalAlignment="Left">Name:</TextBlock>
+                            <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="RecipeName" PlaceholderText="Recipe Name" InputScope="Default"></TextBox>
+                            <TextBlock MaxWidth="300" HorizontalAlignment="Left">Total(g):</TextBlock>
+                            <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="TotalWeight" PlaceholderText="Total weight" InputScope="Number"></TextBox>
+                            <TextBlock MaxWidth="300" HorizontalAlignment="Left">Flour(g):</TextBlock>
+                            <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="FlourWeight" PlaceholderText="Flour weight" InputScope="Number"></TextBox>
+                            <TextBlock MaxWidth="300" HorizontalAlignment="Left">Water(g/ml):</TextBlock>
+                            <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="WaterWeight" PlaceholderText="Water weight" InputScope="Number"></TextBox>
+                            <TextBlock MaxWidth="300" HorizontalAlignment="Left">Salt(g):</TextBlock>
+                            <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="SaltWeight" PlaceholderText="Salt weight" InputScope="Number"></TextBox>
+
+
+                        </StackPanel>
+
+                        <!--Loaf by ratio-->
+                        <StackPanel Grid.Column="1" Margin="10 20 10 10" >
+                            <TextBlock MaxWidth="300" HorizontalAlignment="Left">Other dry(g):</TextBlock>
+                            <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="OtherDryWeight" PlaceholderText="Other dry weight" InputScope="Number"></TextBox>
+                            <TextBlock MaxWidth="300" HorizontalAlignment="Left">Other wet (g):</TextBlock>
+                            <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="OtherWetWeight" PlaceholderText="Other dry weight" InputScope="Number"></TextBox>
+                            <TextBlock MaxWidth="300" HorizontalAlignment="Left">Baker's(%):</TextBlock>
+                            <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="Ratio" PlaceholderText="Loaf Ratio" InputScope="Number"></TextBox>
+                            <TextBlock MaxWidth="300" HorizontalAlignment="Left">Salt(%):</TextBlock>
+                            <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="SaltPercent" PlaceholderText="Salt Percentage" InputScope="Number"></TextBox>
+                            <TextBlock MaxWidth="300" HorizontalAlignment="Left">Other dry(%):</TextBlock>
+                            <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="OtherDryPercent" PlaceholderText="Other dry ratio" InputScope="Number"></TextBox>
+                        </StackPanel>
+
+
+
+                    </Grid>
+                    <Border Padding="0 5 0 0"></Border>
+                    <TextBox Margin="5 0 5 0" MaxWidth="300" MinHeight="100" Name="Notes" AcceptsReturn="True" InputScope="Default" PlaceholderText="Notes..." Height="71"></TextBox>
+                    <Border Padding="0 5 0 0"></Border>
+                    
+                </StackPanel>
+            </Grid>
+            <Border Padding="0 5 0 0"></Border>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width = "*" />
+                    <ColumnDefinition Width = "*" />
+                    <ColumnDefinition Width = "*" />
+                    <ColumnDefinition Width = "*" />
                 </Grid.ColumnDefinitions>
 
-
-                <!-- Loaf by ingredients-->
-                <StackPanel Grid.Column="0" Margin="0 0 5 0">
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Name:</TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="RecipeName" PlaceholderText="Recipe Name" InputScope="Default"></TextBox>
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Total(g):</TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="TotalWeight" PlaceholderText="Total weight" InputScope="Number"></TextBox>
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Flour(g):</TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="FlourWeight" PlaceholderText="Flour weight" InputScope="Number"></TextBox>
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Water(g/ml):</TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="WaterWeight" PlaceholderText="Water weight" InputScope="Number"></TextBox>
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Salt(g):</TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="SaltWeight" PlaceholderText="Salt weight" InputScope="Number"></TextBox>
-                    
-
-                </StackPanel>
-
-                <!--Loaf by ratio-->
-                <StackPanel Grid.Column="1" Margin="5 0 0 0" >
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Other dry(g):</TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="OtherDryWeight" PlaceholderText="Other dry weight" InputScope="Number"></TextBox>
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Other wet (g):</TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="OtherWetWeight" PlaceholderText="Other dry weight" InputScope="Number"></TextBox>
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Baker's(%):</TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="Ratio" PlaceholderText="Loaf Ratio" InputScope="Number"></TextBox>
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Salt(%):</TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="SaltPercent" PlaceholderText="Salt Percentage" InputScope="Number"></TextBox>
-                    <TextBlock MaxWidth="300" HorizontalAlignment="Left">Other dry(%):</TextBlock>
-                    <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="OtherDryPercent" PlaceholderText="Other dry ratio" InputScope="Number"></TextBox>
-                </StackPanel>
-
-
-
+                <Button Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Name="Calc" Click="Calculate">Calculate</Button>
+                <Button Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Name="Save" Click="AddData">Save</Button>
+                <Button Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Name="Load">Load</Button>
+                <Button Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Name="Delete">Delete</Button>
             </Grid>
-            <Border Padding="0 20 0 0"/>
-            <Button HorizontalAlignment="Center" MaxWidth="300" Margin ="100 0 100 0" Name="Calc" Click="Calculate">Calculate</Button>
-            <Border Padding="0 20 0 0"></Border>
-            <TextBox Margin="5 0 5 0" MaxWidth="300" MinHeight="100" Name="Notes" AcceptsReturn="True" InputScope="Default" PlaceholderText="Notes..." Height="71"></TextBox>
-            <ListView Name="Output">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Border Padding="0 10 0 0"></Border>
-            <Button HorizontalAlignment="Center" MaxWidth="300" Margin ="100 0 100 0" Name="Save" Click="AddData">Save</Button>
-            <Button HorizontalAlignment="Center" MaxWidth="300" Margin ="100 0 100 0" Name="Load">Load</Button>
-            <Border Padding="0 10 0 0"></Border>
-            <Button HorizontalAlignment="Center" MaxWidth="300" Margin ="100 0 100 0" Name="Delete">Delete</Button>
-        </StackPanel>
+        </Grid>
     </Border>
 </Page>
 
