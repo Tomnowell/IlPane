@@ -84,10 +84,9 @@ namespace Pane
         }
 
 
-        public static Loaf GetData(int primaryKey)
+        public static List<string> GetData()
         {
             List<String> entries = new List<string>();
-            Loaf aLoaf = new Loaf();
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
             using (SqliteConnection db =
                new SqliteConnection($"Filename={dbpath}"))
@@ -98,8 +97,7 @@ namespace Pane
                 selectCommand.Connection = db;
 
                 // Use parameterized query to prevent SQL injection attacks
-                selectCommand.CommandText = "SELECT * from recipeTable WHERE Primary_Key = VALUES(@key);";
-                selectCommand.Parameters.AddWithValue("@key", primaryKey);
+                selectCommand.CommandText = "SELECT Name from recipeTable;";
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
                 Console.Write(query);
@@ -114,8 +112,9 @@ namespace Pane
 
                 db.Close();
             }
-            
-            return aLoaf;
+
+            return entries;
+
         }
 
     }

@@ -22,7 +22,7 @@ namespace Pane
 
             DataAccess.AddData(CreateCurrentLoaf());
 
-            Output.ItemsSource = DataAccess.GetData(0);
+            Output.ItemsSource = DataAccess.GetData();
         }
 
         private Loaf CreateCurrentLoaf()
@@ -68,7 +68,8 @@ namespace Pane
             }
             catch (FormatException)
             {
-                    return 0.00F;
+                // Warning, this may have some unintended consequences :S
+                return 0.00F;
             }
         }
     }
