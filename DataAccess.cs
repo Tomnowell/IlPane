@@ -14,8 +14,8 @@ namespace Pane
 
     public static class DataAccess
     {
-        const string DBTEMPLATE = "(\"Key\"	INTEGER NOT NULL," +
-            "\"Name\"	            TEXT NOT NULL," +
+        const string DBTEMPLATE = "(\"Key\"	INTEGER NOT NULL UNIQUE," +
+            "\"Name\"	            TEXT NOT NULL UNIQUE," +
             "\"TotalWeight\"	    REAL," +
             "\"FlourWeight\"	    REAL," +
             "\"WaterWeight\"	    REAL," +
@@ -35,8 +35,7 @@ namespace Pane
             Console.WriteLine("initializing database...");
             await ApplicationData.Current.LocalFolder.CreateFileAsync("BreadRecipes.db", CreationCollisionOption.OpenIfExists);
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
-            using (SqliteConnection db =
-               new SqliteConnection($"Filename={dbpath}"))
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}")) 
             {
                 db.Open();
 
@@ -46,12 +45,33 @@ namespace Pane
                 createTable.ExecuteReader();
             }
         }
+        public static void DeleteData(Loaf currentLoaf)
+        {
+            // Deletes the database entry matching the name of currentLoaf
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                SqliteCommand deleteCommand = new SqliteCommand();
+                deleteCommand.Connection = db;
 
+                // Use parameterized query to prevent SQL injection attacks
+                deleteCommand.CommandText = "DELETE FROM recipeTable WHERE Name = @Name;";
+                deleteCommand.Parameters.AddWithValue("@Name", currentLoaf.RecipeName);
+                deleteCommand.ExecuteReader();
+                db.Close();
+            }
+        }
+
+        public static void OverwriteData(Loaf currentLoaf)
+        {
+                DeleteData(currentLoaf);
+                AddData(currentLoaf);
+        }
         public static void AddData(Loaf currentLoaf)
         {
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
-            using (SqliteConnection db =
-              new SqliteConnection($"Filename={dbpath}"))
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
                 db.Open();
 
@@ -63,21 +83,29 @@ namespace Pane
                     "@OtherWetWeight, @Ratio, @BakerPercent, @SaltPercent, @OtherDryPercent," +
                     "@TotalDryWeight, @TotalWetWeight);";
                 insertCommand.Parameters.AddWithValue("@Name",currentLoaf.RecipeName);
-                insertCommand.Parameters.AddWithValue("TotalWeight", currentLoaf.TotalWeight);
-                insertCommand.Parameters.AddWithValue("FlourWeight", currentLoaf.FlourWeight);
-                insertCommand.Parameters.AddWithValue("WaterWeight", currentLoaf.WaterWeight);
-                insertCommand.Parameters.AddWithValue("SaltWeight", currentLoaf.SaltWeight);
-                insertCommand.Parameters.AddWithValue("OtherDryWeight", currentLoaf.OtherDryWeight);
-                insertCommand.Parameters.AddWithValue("OtherWetWeight", currentLoaf.OtherWetWeight);
-                insertCommand.Parameters.AddWithValue("Ratio", currentLoaf.Ratio);
-                insertCommand.Parameters.AddWithValue("BakerPercent", currentLoaf.BakerPercent);
-                insertCommand.Parameters.AddWithValue("SaltPercent", currentLoaf.SaltPercent);
-                insertCommand.Parameters.AddWithValue("OtherDryPercent", currentLoaf.OtherDryPercent);
-                insertCommand.Parameters.AddWithValue("TotalDryWeight", currentLoaf.TotalDryWeight);
-                insertCommand.Parameters.AddWithValue("TotalWetWeight", currentLoaf.TotalWetWeight);
+                insertCommand.Parameters.AddWithValue("@TotalWeight", currentLoaf.TotalWeight);
+                insertCommand.Parameters.AddWithValue("@FlourWeight", currentLoaf.FlourWeight);
+                insertCommand.Parameters.AddWithValue("@WaterWeight", currentLoaf.WaterWeight);
+                insertCommand.Parameters.AddWithValue("@SaltWeight", currentLoaf.SaltWeight);
+                insertCommand.Parameters.AddWithValue("@OtherDryWeight", currentLoaf.OtherDryWeight);
+                insertCommand.Parameters.AddWithValue("@OtherWetWeight", currentLoaf.OtherWetWeight);
+                insertCommand.Parameters.AddWithValue("@Ratio", currentLoaf.Ratio);
+                insertCommand.Parameters.AddWithValue("@BakerPercent", currentLoaf.BakerPercent);
+                insertCommand.Parameters.AddWithValue("@SaltPercent", currentLoaf.SaltPercent);
+                insertCommand.Parameters.AddWithValue("@OtherDryPercent", currentLoaf.OtherDryPercent);
+                insertCommand.Parameters.AddWithValue("@TotalDryWeight", currentLoaf.TotalDryWeight);
+                insertCommand.Parameters.AddWithValue("@TotalWetWeight", currentLoaf.TotalWetWeight);
+                try
+                {
+                    insertCommand.ExecuteReader();
+                }
+                catch(SqliteException ex) when (ex.SqliteErrorCode == 19)
+                {
+                    //Alert overwrite
 
-                insertCommand.ExecuteReader();
-
+                    //Assume Yes
+                    OverwriteData(currentLoaf);
+                }
                 db.Close();
             }
 
@@ -116,6 +144,46 @@ namespace Pane
             return entries;
 
         }
+
+        public static Loaf GetRecipe(string recipeName)
+        {
+            Loaf currentLoaf = new Loaf();
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
+            using (SqliteConnection db =
+               new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+
+                SqliteCommand selectCommand = new SqliteCommand();
+                selectCommand.Connection = db;
+
+                // Use parameterized query to prevent SQL injection attacks
+                selectCommand.CommandText = "SELECT * from recipeTable WHERE name = VALUES (@Name);";
+                selectCommand.Parameters.AddWithValue("Name", recipeName);
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                if (query != null)
+                {
+                    currentLoaf.RecipeName = query.GetString(1);
+                    currentLoaf.TotalWeight = query.GetFloat(2);
+                    currentLoaf.FlourWeight = query.GetFloat(3);
+                    currentLoaf.WaterWeight = query.GetFloat(4);
+                    currentLoaf.SaltWeight = query.GetFloat(5);
+                    currentLoaf.OtherDryWeight = query.GetFloat(6);
+                    currentLoaf.OtherWetWeight = query.GetFloat(7);
+                    currentLoaf.Ratio = query.GetFloat(8);
+                    currentLoaf.SaltPercent = query.GetFloat(9);
+                    currentLoaf.OtherDryPercent = query.GetFloat(10);
+                    currentLoaf.TotalDryWeight = query.GetFloat(11);
+                    currentLoaf.TotalWetWeight = query.GetFloat(12);
+                    currentLoaf.Notes = query.GetString(13);
+                }
+                else throw new SqliteException("query = NULL! Could not populate currentLoaf", 99);
+
+                db.Close();
+            }
+            return currentLoaf;
+        }    
 
     }
 }
