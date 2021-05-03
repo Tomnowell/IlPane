@@ -14,11 +14,14 @@ namespace Pane
         public MainPage()
         {
             this.InitializeComponent();
+
+            // Display current database
+            Output.ItemsSource = DataAccess.GetData();
         }
 
         private void AddData(object sender, RoutedEventArgs e)
         {
-           
+           //When Save is clicked: Add data and refresh.
 
             DataAccess.AddData(CreateCurrentLoaf());
 
@@ -27,7 +30,8 @@ namespace Pane
 
         private Loaf CreateCurrentLoaf()
         {
-            // Process the UI inputs
+            // Process the UI inputs into Loaf object
+
             Loaf currentLoaf = new Loaf(RecipeName.Text, ValidateFloat(FlourWeight.Text),
                 ValidateFloat(TotalWeight.Text), ValidateFloat(WaterWeight.Text),
                 ValidateFloat(SaltWeight.Text), ValidateFloat(OtherDryWeight.Text),
@@ -72,5 +76,6 @@ namespace Pane
                 return 0.00F;
             }
         }
+
     }
 }

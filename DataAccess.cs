@@ -44,6 +44,7 @@ namespace Pane
                 SqliteCommand createTable = new SqliteCommand(tableCommand, db);
                 createTable.ExecuteReader();
             }
+           
         }
         public static void DeleteData(Loaf currentLoaf)
         {
@@ -79,9 +80,9 @@ namespace Pane
                 SqliteCommand insertCommand = new SqliteCommand();
                 insertCommand.Connection = db;
                 insertCommand.CommandText = "INSERT INTO recipeTable VALUES (NULL,@Name,"+
-                    "@TotalWeight, @FlourWeight, @WaterWeight, @SaltWeight, @OtherDryWeight," +
-                    "@OtherWetWeight, @Ratio, @BakerPercent, @SaltPercent, @OtherDryPercent," +
-                    "@TotalDryWeight, @TotalWetWeight);";
+                    "@TotalWeight, @FlourWeight, @WaterWeight, @SaltWeight, " +
+                    "@OtherDryWeight, @OtherWetWeight, @Ratio, @BakerPercent, " +
+                    "@SaltPercent, @OtherDryPercent, @TotalDryWeight, @TotalWetWeight);";
                 insertCommand.Parameters.AddWithValue("@Name",currentLoaf.RecipeName);
                 insertCommand.Parameters.AddWithValue("@TotalWeight", currentLoaf.TotalWeight);
                 insertCommand.Parameters.AddWithValue("@FlourWeight", currentLoaf.FlourWeight);
@@ -128,7 +129,6 @@ namespace Pane
                 selectCommand.CommandText = "SELECT Name from recipeTable;";
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
-                Console.Write(query);
                 
                 while (query.Read())
                 {
