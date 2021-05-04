@@ -48,19 +48,27 @@ namespace Pane
         }
         public static void DeleteData(Loaf currentLoaf)
         {
-            // Deletes the database entry matching the name of currentLoaf
-            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
-            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            // Deletes the database entry of the selected item in ListView
+            if (currentLoaf == null || currentLoaf.RecipeName == "")
             {
-                db.Open();
-                SqliteCommand deleteCommand = new SqliteCommand();
-                deleteCommand.Connection = db;
+                //No loaf to delete display error dialogue
+                throw new SqliteException("Error", 1);
+            }
+            else
+            {
+                string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
+                using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+                {
+                    db.Open();
+                    SqliteCommand deleteCommand = new SqliteCommand();
+                    deleteCommand.Connection = db;
 
-                // Use parameterized query to prevent SQL injection attacks
-                deleteCommand.CommandText = "DELETE FROM recipeTable WHERE Name = @Name;";
-                deleteCommand.Parameters.AddWithValue("@Name", currentLoaf.RecipeName);
-                deleteCommand.ExecuteReader();
-                db.Close();
+                    // Use parameterized query to prevent SQL injection attacks
+                    deleteCommand.CommandText = "DELETE FROM recipeTable WHERE Name = @Name;";
+                    deleteCommand.Parameters.AddWithValue("@Name", currentLoaf.RecipeName);
+                    deleteCommand.ExecuteReader();
+                    db.Close();
+                }
             }
         }
 

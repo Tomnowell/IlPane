@@ -58,13 +58,24 @@ namespace Pane
                 //Display
                 DisplayLoaf(currentLoaf);
             }
+
+            else
+            {
+                // That item does not exist,
+                // Add a warning
+                //
+                // And send back the current Loaf again
+                Loaf currentLoaf = CreateCurrentLoaf();
+                DisplayLoaf(currentLoaf);
+            }
         }
 
         private void DeleteRecipe (object sender, RoutedEventArgs e)
         {
             // This is messy, refactor soon
-            Loaf currentLoaf = DataAccess.GetRecipe(RecipeName.Text);
-            if (currentLoaf != null)
+            var name = Output.SelectedItem.ToString();
+            Loaf currentLoaf = DataAccess.GetRecipe(name);
+            if (currentLoaf != null && currentLoaf.RecipeName != "" && currentLoaf.RecipeName != null)
             {
                 
                 DataAccess.DeleteData(currentLoaf);
@@ -75,7 +86,7 @@ namespace Pane
             
         }
 
-        private void DisplayLoaf(Loaf currentLoaf)
+        private Loaf DisplayLoaf(Loaf currentLoaf)
         {
             // Update UI textboxes with the values in currentLoaf
 
@@ -91,6 +102,8 @@ namespace Pane
             OtherDryPercent.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.OtherDryPercent));
             Notes.Text = currentLoaf.Notes;
             Output.ItemsSource = DataAccess.GetData();
+
+            return currentLoaf;
         }
 
         private float ValidateFloat(string input)
