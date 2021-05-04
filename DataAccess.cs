@@ -158,25 +158,28 @@ namespace Pane
                 selectCommand.Connection = db;
 
                 // Use parameterized query to prevent SQL injection attacks
-                selectCommand.CommandText = "SELECT * from recipeTable WHERE name = VALUES (@Name);";
-                selectCommand.Parameters.AddWithValue("Name", recipeName);
+                selectCommand.CommandText = "SELECT * from recipeTable WHERE name = @Name;";
+                selectCommand.Parameters.AddWithValue("@Name", recipeName);
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
                 if (query != null)
                 {
-                    currentLoaf.RecipeName = query.GetString(1);
-                    currentLoaf.TotalWeight = query.GetFloat(2);
-                    currentLoaf.FlourWeight = query.GetFloat(3);
-                    currentLoaf.WaterWeight = query.GetFloat(4);
-                    currentLoaf.SaltWeight = query.GetFloat(5);
-                    currentLoaf.OtherDryWeight = query.GetFloat(6);
-                    currentLoaf.OtherWetWeight = query.GetFloat(7);
-                    currentLoaf.Ratio = query.GetFloat(8);
-                    currentLoaf.SaltPercent = query.GetFloat(9);
-                    currentLoaf.OtherDryPercent = query.GetFloat(10);
-                    currentLoaf.TotalDryWeight = query.GetFloat(11);
-                    currentLoaf.TotalWetWeight = query.GetFloat(12);
-                    currentLoaf.Notes = query.GetString(13);
+                    while (query.Read())
+                    {
+                        currentLoaf.RecipeName = query.GetString(1);
+                        currentLoaf.TotalWeight = query.GetFloat(2);
+                        currentLoaf.FlourWeight = query.GetFloat(3);
+                        currentLoaf.WaterWeight = query.GetFloat(4);
+                        currentLoaf.SaltWeight = query.GetFloat(5);
+                        currentLoaf.OtherDryWeight = query.GetFloat(6);
+                        currentLoaf.OtherWetWeight = query.GetFloat(7);
+                        currentLoaf.Ratio = query.GetFloat(8);
+                        currentLoaf.SaltPercent = query.GetFloat(9);
+                        currentLoaf.OtherDryPercent = query.GetFloat(10);
+                        currentLoaf.TotalDryWeight = query.GetFloat(11);
+                        currentLoaf.TotalWetWeight = query.GetFloat(12);
+                        currentLoaf.Notes = query.GetString(13);
+                    }
                 }
                 else throw new SqliteException("query = NULL! Could not populate currentLoaf", 99);
 
