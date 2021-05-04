@@ -68,6 +68,9 @@ namespace Pane
             {
                 
                 DataAccess.DeleteData(currentLoaf);
+                
+                //Display
+                DisplayLoaf(currentLoaf);
             }
             
         }
@@ -87,6 +90,7 @@ namespace Pane
             SaltPercent.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.SaltPercent));
             OtherDryPercent.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.OtherDryPercent));
             Notes.Text = currentLoaf.Notes;
+            Output.ItemsSource = DataAccess.GetData();
         }
 
         private float ValidateFloat(string input)
