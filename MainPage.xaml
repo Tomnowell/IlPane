@@ -93,7 +93,7 @@
                     <Button Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Name="Calc" Click="Calculate">Calculate</Button>
                     <Button Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Name="Save" Click="AddData">Save</Button>
                     <Button Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Name="Load" Click="LoadRecipe">Load</Button>
-                    <Button Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Name="Delete">Delete</Button>
+                    <Button Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Name="Delete" Click="DeleteRecipe">Delete</Button>
             
             </Grid>
         </Grid>
