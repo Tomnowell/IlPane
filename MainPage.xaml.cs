@@ -1,13 +1,14 @@
 ﻿using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
+using Windows.UI.Popups;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace Pane
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Main page
     /// </summary>
     public sealed partial class MainPage : Page
     {
@@ -45,6 +46,20 @@ namespace Pane
             DisplayLoaf(CreateCurrentLoaf());
         }
 
+        private void LoadRecipe (object sender, RoutedEventArgs e)
+        {
+            //Get item selected in Listview
+            var name = Output.SelectedItem.ToString();
+            if (name != null)
+            {
+                //Look for that 'name' in the db
+                Loaf currentLoaf = DataAccess.GetRecipe(name);
+
+                //Display
+                DisplayLoaf(currentLoaf);
+            }
+        }
+
         private void DisplayLoaf(Loaf currentLoaf)
         {
             // Update UI textboxes with the values in currentLoaf
@@ -76,6 +91,24 @@ namespace Pane
                 return 0.00F;
             }
         }
+        
+        private void Output_ItemActivate(Object sender, EventArgs e)
+        {
+            DisplaySuccess();
+        }
+        private async void DisplaySuccess()
+        {
+            ContentDialog successDialog = new ContentDialog()
+            {
+                Title = "Success!",
+                Content = "You clicked on it, inside ListView1_Itemactivate.",
+                CloseButtonText = "Ok"
+            };
 
+            await successDialog.ShowAsync();
+        }
+
+
+      
     }
 }
