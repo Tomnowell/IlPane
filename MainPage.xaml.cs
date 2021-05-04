@@ -60,6 +60,18 @@ namespace Pane
             }
         }
 
+        private void DeleteRecipe (object sender, RoutedEventArgs e)
+        {
+            // This is messy, refactor soon
+            Loaf currentLoaf = DataAccess.GetRecipe(RecipeName.Text);
+            if (currentLoaf != null)
+            {
+                
+                DataAccess.DeleteData(currentLoaf);
+            }
+            
+        }
+
         private void DisplayLoaf(Loaf currentLoaf)
         {
             // Update UI textboxes with the values in currentLoaf
