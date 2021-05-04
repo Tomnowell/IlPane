@@ -22,8 +22,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Margin="10 60 10 60" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                     <Border BorderBrush="AliceBlue" BorderThickness="2">
-                        <ListView Name="Output" Height="445" SelectionMode ="Single" IsMultiSelectCheckBoxEnabled="False">
-                            <TextBlock Padding="1 1 1 1" VerticalAlignment="Top" Text="Recipes"></TextBlock>
+                        <ListView Name="Output" Height="445" SelectionMode ="Single" IsMultiSelectCheckBoxEnabled="False" Header="Recipes">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Padding ="1 1 1 1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Text="{Binding}"/>
