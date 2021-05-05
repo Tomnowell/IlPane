@@ -49,41 +49,66 @@ namespace Pane
         private void LoadRecipe (object sender, RoutedEventArgs e)
         {
             //Get item selected in Listview
-            var name = Output.SelectedItem.ToString();
-            if (name != null)
+            if (Output.Items.Count < 1)
             {
-                //Look for that 'name' in the db
-                Loaf currentLoaf = DataAccess.GetRecipe(name);
-
-                //Display
-                DisplayLoaf(currentLoaf);
+                //There are no items to load
+                DisplayFailure("No items to load, please create an item first.");
             }
-
             else
             {
-                // That item does not exist,
-                // Add a warning
-                //
-                // And send back the current Loaf again
-                Loaf currentLoaf = CreateCurrentLoaf();
-                DisplayLoaf(currentLoaf);
+                var name = Output.SelectedItem.ToString();
+                if (name != null)
+                {
+                    //Look for that 'name' in the db
+                    Loaf currentLoaf = DataAccess.GetRecipe(name);
+
+                    //Display
+                    DisplayLoaf(currentLoaf);
+                }
+
+                else
+                {
+                    // That item does not exist,
+                    // Add a warning
+                    //
+                    // And send back the current Loaf again
+                    DisplayFailure("That item does not exist in the database.");
+                    Loaf currentLoaf = CreateCurrentLoaf();
+                    DisplayLoaf(currentLoaf);
+
+                }
             }
         }
 
         private void DeleteRecipe (object sender, RoutedEventArgs e)
         {
             // This is messy, refactor soon
-            var name = Output.SelectedItem.ToString();
-            Loaf currentLoaf = DataAccess.GetRecipe(name);
-            if (currentLoaf != null && currentLoaf.RecipeName != "" && currentLoaf.RecipeName != null)
+            if (Output.Items.Count < 1)
             {
-                
-                DataAccess.DeleteData(currentLoaf);
-                
-                //Display
-                DisplayLoaf(currentLoaf);
+                //There are no items to delete
+                DisplayFailure("No items to delete, please create an item first.");
             }
-            
+            else
+            {
+                var name = Output.SelectedItem.ToString();
+                if (name == null)
+                {
+                    DisplayFailure("That item does not exist in the database.");
+                }
+                else
+                {
+                    Loaf currentLoaf = DataAccess.GetRecipe(name);
+                    if (currentLoaf != null && currentLoaf.RecipeName != "" && currentLoaf.RecipeName != null)
+                    {
+
+                        DataAccess.DeleteData(currentLoaf);
+
+                        //Display
+                        DisplayLoaf(currentLoaf);
+                    }
+                    else { DisplayFailure("Failed to make a Loaf object!"); }
+                }
+            }
         }
 
         private Loaf DisplayLoaf(Loaf currentLoaf)
@@ -120,24 +145,31 @@ namespace Pane
                 return 0.00F;
             }
         }
-        
-        private void Output_ItemActivate(Object sender, EventArgs e)
-        {
-            DisplaySuccess();
-        }
-        private async void DisplaySuccess()
+       
+        private async void DisplaySuccess(string content)
         {
             ContentDialog successDialog = new ContentDialog()
             {
                 Title = "Success!",
-                Content = "You clicked on it, inside ListView1_Itemactivate.",
+                Content = content,
                 CloseButtonText = "Ok"
             };
 
             await successDialog.ShowAsync();
         }
+        private async void DisplayFailure(string content)
+        {
+            ContentDialog failureDialog = new ContentDialog()
+            {
+                Title = "There was an error",
+                Content = content,
+                CloseButtonText = "Ok"
+            };
+
+            await failureDialog.ShowAsync();
+        }
 
 
-      
+
     }
 }
