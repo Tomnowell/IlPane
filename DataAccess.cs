@@ -193,7 +193,7 @@ namespace Pane
                         currentLoaf.Notes = query.GetString(14);
                     }
                 }
-                else throw new SqliteException("query = NULL! Could not populate currentLoaf", 99);
+                else throw new SqliteException("query = NULL! Could not populate currentLoaf", 1);
 
                 db.Close();
             }

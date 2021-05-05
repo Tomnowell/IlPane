@@ -53,6 +53,7 @@ namespace Pane
             float saltWeight, float otherDryWeight, float otherWetWeight, float ratio,
             float saltPercent, float otherDryPercent, string notes)
         {
+            Key = -1;
             RecipeName = recipeName;
             FlourWeight = flourWeight;
             TotalWeight = totalWeight;
@@ -61,6 +62,7 @@ namespace Pane
             OtherDryWeight = otherDryWeight;
             OtherWetWeight = otherWetWeight;
             Ratio = ratio;
+            BakerPercent = (float)-1.00;
             SaltPercent = saltPercent;
             OtherDryPercent = otherDryPercent;
             Notes = notes;
