@@ -23,6 +23,7 @@ namespace Pane
             "\"OtherDryWeight\"	    REAL," +
             "\"OtherWetWeight\"	    REAL," +
             "\"Ratio\"	            REAL," +
+            "\"BakerPercent\"       REAL," +
             "\"SaltPercent\"	    REAL," +
             "\"OtherDryPercent\"	REAL," +
             "\"TotalDryWeight\"	    REAL," +
@@ -90,7 +91,7 @@ namespace Pane
                 insertCommand.CommandText = "INSERT INTO recipeTable VALUES (NULL,@Name,"+
                     "@TotalWeight, @FlourWeight, @WaterWeight, @SaltWeight, " +
                     "@OtherDryWeight, @OtherWetWeight, @Ratio, @BakerPercent, " +
-                    "@SaltPercent, @OtherDryPercent, @TotalDryWeight, @TotalWetWeight);";
+                    "@SaltPercent, @OtherDryPercent, @TotalDryWeight, @TotalWetWeight, @Notes);";
                 insertCommand.Parameters.AddWithValue("@Name",currentLoaf.RecipeName);
                 insertCommand.Parameters.AddWithValue("@TotalWeight", currentLoaf.TotalWeight);
                 insertCommand.Parameters.AddWithValue("@FlourWeight", currentLoaf.FlourWeight);
@@ -104,6 +105,7 @@ namespace Pane
                 insertCommand.Parameters.AddWithValue("@OtherDryPercent", currentLoaf.OtherDryPercent);
                 insertCommand.Parameters.AddWithValue("@TotalDryWeight", currentLoaf.TotalDryWeight);
                 insertCommand.Parameters.AddWithValue("@TotalWetWeight", currentLoaf.TotalWetWeight);
+                insertCommand.Parameters.AddWithValue("@Notes", currentLoaf.Notes);
                 try
                 {
                     insertCommand.ExecuteReader();
@@ -174,6 +176,7 @@ namespace Pane
                 {
                     while (query.Read())
                     {
+                        currentLoaf.Key1 = query.GetInt32(0);
                         currentLoaf.RecipeName = query.GetString(1);
                         currentLoaf.TotalWeight = query.GetFloat(2);
                         currentLoaf.FlourWeight = query.GetFloat(3);
@@ -182,11 +185,12 @@ namespace Pane
                         currentLoaf.OtherDryWeight = query.GetFloat(6);
                         currentLoaf.OtherWetWeight = query.GetFloat(7);
                         currentLoaf.Ratio = query.GetFloat(8);
-                        currentLoaf.SaltPercent = query.GetFloat(9);
-                        currentLoaf.OtherDryPercent = query.GetFloat(10);
-                        currentLoaf.TotalDryWeight = query.GetFloat(11);
-                        currentLoaf.TotalWetWeight = query.GetFloat(12);
-                        currentLoaf.Notes = query.GetString(13);
+                        currentLoaf.BakerPercent = query.GetFloat(9);
+                        currentLoaf.SaltPercent = query.GetFloat(10);
+                        currentLoaf.OtherDryPercent = query.GetFloat(11);
+                        currentLoaf.TotalDryWeight = query.GetFloat(12);
+                        currentLoaf.TotalWetWeight = query.GetFloat(13);
+                        currentLoaf.Notes = query.GetString(14);
                     }
                 }
                 else throw new SqliteException("query = NULL! Could not populate currentLoaf", 99);

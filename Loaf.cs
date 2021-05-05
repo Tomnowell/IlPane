@@ -11,6 +11,8 @@ namespace Pane
     {
         private string recipeName;
 
+        private int Key;
+
         private float totalWeight;
         private float flourWeight;
         private float waterWeight;
@@ -43,6 +45,7 @@ namespace Pane
         public float TotalDryWeight { get => totalDryWeight; set => totalDryWeight = value; }
         public float TotalWetWeight { get => totalWetWeight; set => totalWetWeight = value; }
         public string RecipeName { get => recipeName; set => recipeName = value; }
+        public int Key1 { get => Key; set => Key = value; }
 
         public Loaf() { }
 
