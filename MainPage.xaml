@@ -62,7 +62,7 @@
                                 <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="OtherDryWeight" PlaceholderText="Other dry weight" InputScope="Number"></TextBox>
                                 <TextBlock MaxWidth="300" HorizontalAlignment="Left">Other wet (g):</TextBlock>
                                 <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="OtherWetWeight" PlaceholderText="Other dry weight" InputScope="Number"></TextBox>
-                                <TextBlock MaxWidth="300" HorizontalAlignment="Left">Baker's(%):</TextBlock>
+                                <TextBlock MaxWidth="300" HorizontalAlignment="Left">Loaf ratio (%):</TextBlock>
                                 <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="Ratio" PlaceholderText="Loaf Ratio" InputScope="Number"></TextBox>
                                 <TextBlock MaxWidth="300" HorizontalAlignment="Left">Salt(%):</TextBlock>
                                 <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="SaltPercent" PlaceholderText="Salt Percentage" InputScope="Number"></TextBox>

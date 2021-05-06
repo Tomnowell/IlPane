@@ -90,23 +90,30 @@ namespace Pane
             }
             else
             {
-                var name = Output.SelectedItem.ToString();
-                if (name == null)
+                if (Output.SelectedItems.Count > 0)
                 {
-                    DisplayFailure("That item does not exist in the database.");
+                    var name = Output.SelectedItem.ToString();
+                    if (name == null || name == "")
+                    {
+                        DisplayFailure("That item does not exist in the database.");
+                    }
+                    else
+                    {
+                        Loaf currentLoaf = DataAccess.GetRecipe(name);
+                        if (currentLoaf != null && currentLoaf.RecipeName != "" && currentLoaf.RecipeName != null)
+                        {
+
+                            DataAccess.DeleteData(currentLoaf);
+
+                            //Display
+                            DisplayLoaf(currentLoaf);
+                        }
+                        else { DisplayFailure("Failed to make a Loaf object!"); }
+                    }
                 }
                 else
                 {
-                    Loaf currentLoaf = DataAccess.GetRecipe(name);
-                    if (currentLoaf != null && currentLoaf.RecipeName != "" && currentLoaf.RecipeName != null)
-                    {
-
-                        DataAccess.DeleteData(currentLoaf);
-
-                        //Display
-                        DisplayLoaf(currentLoaf);
-                    }
-                    else { DisplayFailure("Failed to make a Loaf object!"); }
+                    DisplayFailure("Please select an item to delete.");
                 }
             }
         }
