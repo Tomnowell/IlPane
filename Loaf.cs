@@ -53,7 +53,11 @@ namespace Pane
             float saltWeight, float otherDryWeight, float otherWetWeight, float ratio,
             float saltPercent, float otherDryPercent, string notes)
         {
-            Key = -1;
+            if (Key < 0)
+            {
+                // This only gets set when added to the database.
+                Key = -1;
+            }
             RecipeName = recipeName;
             FlourWeight = flourWeight;
             TotalWeight = totalWeight;
@@ -62,7 +66,39 @@ namespace Pane
             OtherDryWeight = otherDryWeight;
             OtherWetWeight = otherWetWeight;
             Ratio = ratio;
-            BakerPercent = (float)-1.00;
+            if (BakerPercent < 0)
+            {
+                BakerPercent = (float)-1.00;
+            }
+            SaltPercent = saltPercent;
+            OtherDryPercent = otherDryPercent;
+            Notes = notes;
+
+            this.InitializeLoaf();
+        }
+        public Loaf(int key, string recipeName, float flourWeight, float totalWeight, float waterWeight,
+            float saltWeight, float otherDryWeight, float otherWetWeight, float ratio, float bakerPercent,
+            float saltPercent, float otherDryPercent, string notes)
+        {
+            if (Key < 0)
+            {
+                // This only gets set when added to the database.
+                Key = -1;
+            }
+            else
+            {
+                // Key is fetched from db
+                Key = key;
+            }
+            RecipeName = recipeName;
+            FlourWeight = flourWeight;
+            TotalWeight = totalWeight;
+            WaterWeight = waterWeight;
+            SaltWeight = saltWeight;
+            OtherDryWeight = otherDryWeight;
+            OtherWetWeight = otherWetWeight;
+            Ratio = ratio;
+            BakerPercent = bakerPercent;
             SaltPercent = saltPercent;
             OtherDryPercent = otherDryPercent;
             Notes = notes;
