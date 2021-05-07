@@ -22,11 +22,18 @@ namespace Pane
 
         private void AddData(object sender, RoutedEventArgs e)
         {
-           //When Save is clicked: Add data and refresh.
+            //When Save is clicked: Add data and refresh.
+            if (RecipeName.Text != "" || RecipeName.Text != null)
+            {
 
-            DataAccess.AddData(CreateCurrentLoaf());
+                DataAccess.AddData(CreateCurrentLoaf());
 
-            Output.ItemsSource = DataAccess.GetData();
+                Output.ItemsSource = DataAccess.GetData();
+            }
+            else
+            {
+                DisplayFailure("Please enter a name.");
+            }
         }
 
         private Loaf CreateCurrentLoaf()
@@ -56,26 +63,33 @@ namespace Pane
             }
             else
             {
-                var name = Output.SelectedItem.ToString();
-                if (name != null)
+                if (Output.SelectedItems.Count > 0)
                 {
-                    //Look for that 'name' in the db
-                    Loaf currentLoaf = DataAccess.GetRecipe(name);
+                    var name = Output.SelectedItem.ToString();
+                    if (name != null)
+                    {
+                        //Look for that 'name' in the db
+                        Loaf currentLoaf = DataAccess.GetRecipe(name);
 
-                    //Display
-                    DisplayLoaf(currentLoaf);
+                        //Display
+                        DisplayLoaf(currentLoaf);
+                    }
+
+                    else
+                    {
+                        // That item does not exist,
+                        // Add a warning
+                        //
+                        // And send back the current Loaf again
+                        DisplayFailure("That item does not exist in the database.");
+                        Loaf currentLoaf = CreateCurrentLoaf();
+                        DisplayLoaf(currentLoaf);
+
+                    }
                 }
-
                 else
                 {
-                    // That item does not exist,
-                    // Add a warning
-                    //
-                    // And send back the current Loaf again
-                    DisplayFailure("That item does not exist in the database.");
-                    Loaf currentLoaf = CreateCurrentLoaf();
-                    DisplayLoaf(currentLoaf);
-
+                    DisplayFailure("No items to load.");
                 }
             }
         }
@@ -175,8 +189,6 @@ namespace Pane
 
             await failureDialog.ShowAsync();
         }
-
-
 
     }
 }

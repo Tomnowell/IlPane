@@ -8,7 +8,7 @@
 
   <Identity
     Name="IlPane"
-    Publisher="CN=tom"
+    Publisher="CN=Thomas Nowell"
     Version="0.0.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="569141d8-766f-4e74-8aad-b3b1bca69382" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
@@ -33,19 +33,17 @@
       EntryPoint="Pane.App">
       <uap:VisualElements
         DisplayName="IlPane"
-        Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\Square44x44Logo.png"
         Description="Il Pane.  A bread design application"
-        BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Il Pane" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
+        BackgroundColor="transparent"  Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile ShortName="Il Pane"   Square71x71Logo="Assets\SmallTile.png" Wide310x150Logo="Assets\WideTile.png" Square310x310Logo="Assets\LargeTile.png">
           <uap:ShowNameOnTiles>
-            <uap:ShowOn Tile="wide310x150Logo"/>
             <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+            <uap:ShowOn Tile="square310x310Logo"/>
           </uap:ShowNameOnTiles>
         </uap:DefaultTile >
-        <uap:SplashScreen Image="Assets\SplashScreen.png"  BackgroundColor="black"/>
-        <uap:InitialRotationPreference>
-          <uap:Rotation Preference="landscapeFlipped"/></uap:InitialRotationPreference>
+        <uap:SplashScreen BackgroundColor="transparent"  Image="Assets\SplashScreen.png"/>
+        <uap:LockScreen Notification="badge" BadgeLogo="Assets\BadgeLogo.png"/>
       </uap:VisualElements>
     </Application>
   </Applications>
