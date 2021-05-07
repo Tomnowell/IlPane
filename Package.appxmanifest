@@ -9,7 +9,7 @@
   <Identity
     Name="IlPane"
     Publisher="CN=Thomas Nowell"
-    Version="0.0.1.0" />
+    Version="0.0.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="569141d8-766f-4e74-8aad-b3b1bca69382" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

@@ -68,23 +68,15 @@ namespace Pane
                     var name = Output.SelectedItem.ToString();
                     if (name != null)
                     {
-                        //Look for that 'name' in the db
+                        //Look for that  recipe's name in the db
                         Loaf currentLoaf = DataAccess.GetRecipe(name);
 
-                        //Display
                         DisplayLoaf(currentLoaf);
                     }
 
                     else
-                    {
-                        // That item does not exist,
-                        // Add a warning
-                        //
-                        // And send back the current Loaf again
-                        DisplayFailure("That item does not exist in the database.");
-                        Loaf currentLoaf = CreateCurrentLoaf();
-                        DisplayLoaf(currentLoaf);
-
+                    {                       
+                        DisplayFailure("That item does not exist.");
                     }
                 }
                 else
