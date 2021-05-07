@@ -23,7 +23,7 @@ namespace Pane
         private void AddData(object sender, RoutedEventArgs e)
         {
             //When Save is clicked: Add data and refresh.
-            if (RecipeName.Text != "" || RecipeName.Text != null)
+            if (RecipeName.Text.Length != 0)
             {
 
                 DataAccess.AddData(CreateCurrentLoaf());

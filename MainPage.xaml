@@ -43,7 +43,7 @@
                             <!-- Loaf by ingredients-->
                             <StackPanel Grid.Column="0" Margin="10 20 10 10">
                                 <TextBlock MaxWidth="300" HorizontalAlignment="Left">Name:</TextBlock>
-                                <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="RecipeName" PlaceholderText="Recipe Name" InputScope="Default"></TextBox>
+                                <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="RecipeName" PlaceholderText="Recipe Name" Text="recipe1" InputScope="Default"></TextBox>
                                 <TextBlock MaxWidth="300" HorizontalAlignment="Left">Total(g):</TextBlock>
                                 <TextBox MaxWidth="300" Margin ="0 5 0 5" Padding="0 2 2 0" Name="TotalWeight" PlaceholderText="Total weight" InputScope="Number"></TextBox>
                                 <TextBlock MaxWidth="300" HorizontalAlignment="Left">Flour(g):</TextBlock>
