@@ -14,7 +14,7 @@
   <mp:PhoneIdentity PhoneProductId="569141d8-766f-4e74-8aad-b3b1bca69382" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>IlPane</DisplayName>
+    <DisplayName>Il Pane</DisplayName>
     <PublisherDisplayName>Tom Nowell</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>

@@ -1,8 +1,12 @@
 # Il pane
 Bread recipe design application
 
+This is a UWP application.
+
 #GOAL
-To make an application to help people who bake bread (professionally and as a hobby) keep their recipes together, calculate hydration and salt content.
+To make an application to help people who bake bread keep their recipes together, calculate hydration and salt content, and keep notes.
 
 
-In the future change and scale recipes, annotate and rate.
+#THANKS
+Thanks to Eric Sink for SQLitePCLRaw package.
+Thanks to Microsoft for Sqlite.Core and .NETCore
