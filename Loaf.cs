@@ -19,8 +19,7 @@ namespace Pane
         private float saltPercent;
         private float otherDryPercent;
 
-        // Totals variables
-        private float totalWeight;
+
         private float totalDryWeight;
         private float totalWetWeight;
 
@@ -42,8 +41,10 @@ namespace Pane
         public string RecipeName { get => recipeName; set => recipeName = value; }
         public int Key1 { get => Key; set => Key = value; }
 
-        public Loaf() { }
+        // Basic constructor 
+        public Loaf() { } 
 
+        // Normal constructor
         public Loaf(string recipeName, float flourWeight, float totalWeight, float waterWeight,
             float saltWeight, float otherDryWeight, float otherWetWeight, float ratio,
             float saltPercent, float otherDryPercent, string notes)
@@ -67,6 +68,8 @@ namespace Pane
 
             this.InitializeLoaf();
         }
+
+        //Complete constructor
         public Loaf(int key, string recipeName, float flourWeight, float totalWeight, float waterWeight,
             float saltWeight, float otherDryWeight, float otherWetWeight, float ratio, float saltPercent, 
             float otherDryPercent, string notes)
@@ -140,21 +143,23 @@ namespace Pane
                 }
 
                 //** Baking tip **
-                // Baker's math: all ingredients are a percentage of the total flour weight
-                // i.e. ingredient / flour * 100
-                this.Ratio = (this.WaterWeight / this.FlourWeight) * 100;
+                // Bakers measure hydration as a ratio of dry to wet ingredients
+                // Usually flour & salt to water
+                this.Ratio = (this.FlourWeight * 100) / this.TotalWeight;
 
-                // If salt weight is set calculate the salt ratio
+                //** Baking tip **
+                // Bakers measure salt as a percentage of the flour weight, not total weight
                 if (this.SaltWeight > 0) 
                 { 
                     this.SaltPercent = (this.SaltWeight / this.FlourWeight) * 100; 
                 }
+
                 this.CalculateWeightsFromRatios();
             }
             else
             {
                 // INVALID WEIGHTS
-                throw new ArgumentException("Invalid weights", this.RecipeName);
+                throw new Exception("Invalid weights");
             }
 
         }
@@ -163,10 +168,11 @@ namespace Pane
             if (this.IsValidRatios())
             {
 
-                // If salt ratio is already set, use it:
+                // Calculate ratios
                 if (saltPercent > 0)
                 {
-                    // Calculate salt by ratio
+                    // Calculate salt by ratio (ratio has been set)
+                    this.BakerPercent = 100 + this.Ratio + this.SaltPercent + this.OtherDryPercent;
                     this.FlourWeight = this.TotalWeight * (this.Ratio / 100);
                     this.SaltWeight = this.FlourWeight * (this.SaltPercent / 100);
 
@@ -182,7 +188,7 @@ namespace Pane
                 else
                 {
                     // Calculate salt by weight (ratio not set)
-
+                    this.BakerPercent = 100 + this.Ratio + this.OtherDryPercent;
                     this.FlourWeight = this.TotalWeight * (this.Ratio / 100);
 
                     this.TotalDryWeight = this.FlourWeight + this.SaltWeight + this.OtherDryWeight;
