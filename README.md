@@ -22,7 +22,7 @@ The second paradigm, consider:
   
 You can swap between these paradigms and once you're happy with the results you can name the recipe and save it.
 
-### save 
+### Save 
 To save a recipe, enter a name and click the 'save' button.  Names must be unique.
 
 ### Load
@@ -30,17 +30,17 @@ TO load a recipe, select the name of the recipe from the left list.  Then click 
 
 # INSTALL instructions
 
-### compile yourself
+## Compile
 Please compile your own version from the Visual Studio .sln files provided.  
 
-### binaries
+## Released binaries
 Or check the releases section for the latest x86 release. Please run the Install.ps1 powershell script allow Developer access.  This software was developed as a UWP app, so sideloading or Developer status is required.   
 
-### WARNING security hazard
+### WARNING Security Hazard
 If you worry about your security (and you should!) Please compile your own version with your own certificate.  I do not promise to keep the binaries up to date, and you should be wary of anyone asking you to run powershell scripts without reading them first.  Even a fellow bread baker.
 
 # Enjoy baking
-Please don't forget your love of baking even though this software may transform your life.  It may be super addictive to tweak your recipe until you have it just right.  I hope you do.  But don't forget your love of getting your hands covered in flour, kneading that yeasty dough until your shoulders ache and then enjoying the wonderful scented crust of a freshly baked loaf.  Good luck & bon appetite!
+Please don't forget your love of baking even though this software may transform your life.  It may be super addictive to tweak your recipe until you have it just right.  I hope you find that perfect loaf.  But don't forget your love of getting your hands covered in flour, kneading that yeasty dough until your shoulders ache and then enjoying the wonderful scented crust of a freshly baked loaf.  Good luck & bon appetite!
 
 # Thanks
 Thanks to Eric Sink for SQLitePCLRaw package.
@@ -48,14 +48,6 @@ Thanks to Microsoft for Sqlite.Core and .NETCore
 
 * "Baker's percentage" or "baker's math": every ingredient is expressed as a percentage of the flour weight (not total weight). The flour weight is expressed as 100%.  So Ratio = Water/Flour x 100.
 
-# Licence
-Begin license text.
-Copyright <2021> <Thomas Sion Nowell>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+# Disclaimer
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-End license text.
