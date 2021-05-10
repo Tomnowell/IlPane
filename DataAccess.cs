@@ -23,7 +23,6 @@ namespace Pane
             "\"OtherDryWeight\"	    REAL," +
             "\"OtherWetWeight\"	    REAL," +
             "\"Ratio\"	            REAL," +
-            "\"BakerPercent\"       REAL," +
             "\"SaltPercent\"	    REAL," +
             "\"OtherDryPercent\"	REAL," +
             "\"TotalDryWeight\"	    REAL," +
@@ -90,8 +89,8 @@ namespace Pane
                 insertCommand.Connection = db;
                 insertCommand.CommandText = "INSERT INTO recipeTable VALUES (NULL,@Name,"+
                     "@TotalWeight, @FlourWeight, @WaterWeight, @SaltWeight, " +
-                    "@OtherDryWeight, @OtherWetWeight, @Ratio, @BakerPercent, " +
-                    "@SaltPercent, @OtherDryPercent, @TotalDryWeight, @TotalWetWeight, @Notes);";
+                    "@OtherDryWeight, @OtherWetWeight, @Ratio, @SaltPercent, " + 
+                    "@OtherDryPercent, @TotalDryWeight, @TotalWetWeight, @Notes);";
                 insertCommand.Parameters.AddWithValue("@Name",currentLoaf.RecipeName);
                 insertCommand.Parameters.AddWithValue("@TotalWeight", currentLoaf.TotalWeight);
                 insertCommand.Parameters.AddWithValue("@FlourWeight", currentLoaf.FlourWeight);
@@ -100,7 +99,6 @@ namespace Pane
                 insertCommand.Parameters.AddWithValue("@OtherDryWeight", currentLoaf.OtherDryWeight);
                 insertCommand.Parameters.AddWithValue("@OtherWetWeight", currentLoaf.OtherWetWeight);
                 insertCommand.Parameters.AddWithValue("@Ratio", currentLoaf.Ratio);
-                insertCommand.Parameters.AddWithValue("@BakerPercent", currentLoaf.BakerPercent);
                 insertCommand.Parameters.AddWithValue("@SaltPercent", currentLoaf.SaltPercent);
                 insertCommand.Parameters.AddWithValue("@OtherDryPercent", currentLoaf.OtherDryPercent);
                 insertCommand.Parameters.AddWithValue("@TotalDryWeight", currentLoaf.TotalDryWeight);
@@ -185,12 +183,11 @@ namespace Pane
                         currentLoaf.OtherDryWeight = query.GetFloat(6);
                         currentLoaf.OtherWetWeight = query.GetFloat(7);
                         currentLoaf.Ratio = query.GetFloat(8);
-                        currentLoaf.BakerPercent = query.GetFloat(9);
-                        currentLoaf.SaltPercent = query.GetFloat(10);
-                        currentLoaf.OtherDryPercent = query.GetFloat(11);
-                        currentLoaf.TotalDryWeight = query.GetFloat(12);
-                        currentLoaf.TotalWetWeight = query.GetFloat(13);
-                        currentLoaf.Notes = query.GetString(14);
+                        currentLoaf.SaltPercent = query.GetFloat(9);
+                        currentLoaf.OtherDryPercent = query.GetFloat(10);
+                        currentLoaf.TotalDryWeight = query.GetFloat(11);
+                        currentLoaf.TotalWetWeight = query.GetFloat(12);
+                        currentLoaf.Notes = query.GetString(13);
                     }
                 }
                 else throw new SqliteException("query = NULL! Could not populate currentLoaf", 1);

@@ -1,34 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Popups;
 
 namespace Pane
 {
     public class Loaf
     {
+        // Variables for name and database key
         private string recipeName;
-
         private int Key;
 
-        private float totalWeight;
+        // Ingredient variables
         private float flourWeight;
         private float waterWeight;
         private float saltWeight;
         private float otherDryWeight;
         private float otherWetWeight;
-        private float bakerPercent;
         private float ratio;
         private float saltPercent;
         private float otherDryPercent;
 
-
+        // Totals variables
+        private float totalWeight;
         private float totalDryWeight;
         private float totalWetWeight;
 
-
+        // Keep track of notes:
         private string notes = "";
 
         public float FlourWeight { get => flourWeight; set => flourWeight = value; }
@@ -37,7 +33,6 @@ namespace Pane
         public float SaltWeight { get => saltWeight; set => saltWeight = value; }
         public float OtherDryWeight { get => otherDryWeight; set => otherDryWeight = value; }
         public float OtherWetWeight { get => otherWetWeight; set => otherWetWeight = value; }
-        public float BakerPercent { get => bakerPercent; set => bakerPercent = value; }
         public float Ratio { get => ratio; set => ratio = value; }
         public float SaltPercent { get => saltPercent; set => saltPercent = value; }
         public float OtherDryPercent { get => otherDryPercent; set => otherDryPercent = value; }
@@ -66,10 +61,6 @@ namespace Pane
             OtherDryWeight = otherDryWeight;
             OtherWetWeight = otherWetWeight;
             Ratio = ratio;
-            if (BakerPercent < 0)
-            {
-                BakerPercent = (float)-1.00;
-            }
             SaltPercent = saltPercent;
             OtherDryPercent = otherDryPercent;
             Notes = notes;
@@ -77,8 +68,8 @@ namespace Pane
             this.InitializeLoaf();
         }
         public Loaf(int key, string recipeName, float flourWeight, float totalWeight, float waterWeight,
-            float saltWeight, float otherDryWeight, float otherWetWeight, float ratio, float bakerPercent,
-            float saltPercent, float otherDryPercent, string notes)
+            float saltWeight, float otherDryWeight, float otherWetWeight, float ratio, float saltPercent, 
+            float otherDryPercent, string notes)
         {
             if (Key < 0)
             {
@@ -98,7 +89,6 @@ namespace Pane
             OtherDryWeight = otherDryWeight;
             OtherWetWeight = otherWetWeight;
             Ratio = ratio;
-            BakerPercent = bakerPercent;
             SaltPercent = saltPercent;
             OtherDryPercent = otherDryPercent;
             Notes = notes;
@@ -150,12 +140,11 @@ namespace Pane
                 }
 
                 //** Baking tip **
-                // Bakers measure hydration as a ratio of dry to wet ingredients
-                // Usually flour & salt to water
-                this.Ratio = (this.FlourWeight * 100) / this.TotalWeight;
+                // Baker's math: all ingredients are a percentage of the total flour weight
+                // i.e. ingredient / flour * 100
+                this.Ratio = (this.WaterWeight / this.FlourWeight) * 100;
 
-                //** Baking tip **
-                // Bakers measure salt as a percentage of the flour weight, not total weight
+                // If salt weight is set calculate the salt ratio
                 if (this.SaltWeight > 0) 
                 { 
                     this.SaltPercent = (this.SaltWeight / this.FlourWeight) * 100; 
@@ -174,13 +163,14 @@ namespace Pane
             if (this.IsValidRatios())
             {
 
-                // Calculate ratios
+                // If salt ratio is already set, use it:
                 if (saltPercent > 0)
                 {
-                    // Calculate salt by ratio (ratio has been set)
-                    this.BakerPercent = 100 + this.Ratio + this.SaltPercent + this.OtherDryPercent;
+                    // Calculate salt by ratio
                     this.FlourWeight = this.TotalWeight * (this.Ratio / 100);
                     this.SaltWeight = this.FlourWeight * (this.SaltPercent / 100);
+
+
                     if (this.OtherDryPercent > 0)
                     {
                         this.OtherDryWeight = this.FlourWeight / (this.OtherDryPercent / 100);
@@ -192,7 +182,7 @@ namespace Pane
                 else
                 {
                     // Calculate salt by weight (ratio not set)
-                    this.BakerPercent = 100 + this.Ratio + this.OtherDryPercent;
+
                     this.FlourWeight = this.TotalWeight * (this.Ratio / 100);
 
                     this.TotalDryWeight = this.FlourWeight + this.SaltWeight + this.OtherDryWeight;
