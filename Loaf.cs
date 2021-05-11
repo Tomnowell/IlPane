@@ -19,7 +19,8 @@ namespace Pane
         private float saltPercent;
         private float otherDryPercent;
 
-
+        // Totals variables
+        private float totalWeight;
         private float totalDryWeight;
         private float totalWetWeight;
 
@@ -172,7 +173,6 @@ namespace Pane
                 if (saltPercent > 0)
                 {
                     // Calculate salt by ratio (ratio has been set)
-                    this.BakerPercent = 100 + this.Ratio + this.SaltPercent + this.OtherDryPercent;
                     this.FlourWeight = this.TotalWeight * (this.Ratio / 100);
                     this.SaltWeight = this.FlourWeight * (this.SaltPercent / 100);
 
@@ -188,7 +188,6 @@ namespace Pane
                 else
                 {
                     // Calculate salt by weight (ratio not set)
-                    this.BakerPercent = 100 + this.Ratio + this.OtherDryPercent;
                     this.FlourWeight = this.TotalWeight * (this.Ratio / 100);
 
                     this.TotalDryWeight = this.FlourWeight + this.SaltWeight + this.OtherDryWeight;

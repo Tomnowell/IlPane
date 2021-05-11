@@ -158,6 +158,26 @@ namespace Pane
                 return 0.00F;
             }
         }
+
+        private void ClearAll (object sender, RoutedEventArgs e)
+        {
+            // TODO
+        }
+
+        private void ClearWeights(object sender, RoutedEventArgs e)
+        {
+            //TODO
+        }
+
+        private void ClearRatios(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            //TODO
+        }
+
        
         private async void DisplaySuccess(string content)
         {
@@ -182,5 +202,9 @@ namespace Pane
             await failureDialog.ShowAsync();
         }
 
+        private void Notes_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
