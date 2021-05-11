@@ -12,10 +12,10 @@ While the scope of this application is less ambitious, I hope it can provide an 
 
 You can use the applications in two general ways.  These are:
 - to hit a target loaf weight and hydration.
-- to enter a recipe and adjust the values from there
+- to enter an existing recipe and then adjust the values.
 
-To understand the first paradigm, consider:
-  Sometimes (as bakers) we want to make a loaf of a particular hydration without knowing the exact quantities of flour and water.  In this case, you can enter the 'Loaf ratio'* and the total weight along with the ratio or quantity of salt you want to add (and the weights of any other ingredients).  The applcation will then calculate the weights of flour and water for your recipe.
+To understand the first paradigm, consider this situation:
+  You want to make a loaf of bread with the dough at a particular hydration without knowing the exact quantities of flour and water.  In this case, you can enter the 'Loaf ratio'* and the total weight along with the ratio or quantity of salt you want to add (and the weights of any other ingredients).  The applcation will then calculate the weights of flour and water for your recipe.
   
 The second paradigm, consider:
   You have a recipe handed down from a dear relative who used to bake delicious bread, but did so by the metric tonne every day.  You really want to follow their recipe, but you don't have an oven large enough, and besides, you don't have enough friends to give that much bread to.  You can enter the weights of each ingredient.  Calculate the ratios and then adjust the recipe to keep the balance the same.

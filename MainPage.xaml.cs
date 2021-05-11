@@ -161,24 +161,87 @@ namespace Pane
 
         private void ClearAll (object sender, RoutedEventArgs e)
         {
-            // TODO
+            // Clear all textboxes
+            RecipeName.Text = "Recipe";
+            FlourWeight.Text = "";
+            TotalWeight.Text = "";
+            WaterWeight.Text = "";
+            SaltWeight.Text = "";
+            OtherDryWeight.Text = "";
+            OtherWetWeight.Text = "";
+            Ratio.Text = "";
+            SaltPercent.Text = "";
+            OtherDryPercent.Text = "";
+            Notes.Text = "";
         }
 
         private void ClearWeights(object sender, RoutedEventArgs e)
         {
-            //TODO
+            // Reset all weights
+
+            // This will not affect any saved recipes
+
+            FlourWeight.Text = "";
+            TotalWeight.Text = "";
+            WaterWeight.Text = "";
+            SaltWeight.Text = "";
+            OtherDryWeight.Text = "";
+            OtherWetWeight.Text = "";
         }
 
         private void ClearRatios(object sender, RoutedEventArgs e)
         {
+            // Just reset ratio textboxes
 
+            // This will not affect any saved recipes
+
+            Ratio.Text = "";
+            SaltPercent.Text = "";
+            OtherDryPercent.Text = "";
         }
-        private void Exit(object sender, RoutedEventArgs e)
+
+        private void Exit (object sender, RoutedEventArgs e)
         {
-            //TODO
+            DisplayExitDialog(RecipeName.Text);
         }
 
-       
+        private async void DisplayExitDialog(string recipeName)
+        {
+            string title = "Do you want to save your changes to " + recipeName + " ?";
+            ContentDialog exitFileDialog = new ContentDialog
+            {
+                Title = title,
+                Content = "If you quit without saving this recipe, any unsaved changes will be lost.  Do you want to save the current recipe?",
+                PrimaryButtonText = "Save",
+                CloseButtonText = "Exit"
+            };
+
+            ContentDialogResult result = await exitFileDialog.ShowAsync();
+
+            // Delete the file if the user clicked the primary button.
+            /// Otherwise, do nothing.
+            if (result == ContentDialogResult.Primary)
+            {
+                if (RecipeName.Text.Length != 0)
+                {
+                    // If there is a valid name for the recipe 
+
+                    DataAccess.AddData(CreateCurrentLoaf());
+                    DisplaySuccess("Recipe Saved");
+                    Application.Current.Exit();
+                }
+                else
+                {
+                    DisplayFailure("Please enter a name.");
+                }
+            }
+            else
+            {
+                // User clicked exit
+                Application.Current.Exit();
+            }
+        }
+
         private async void DisplaySuccess(string content)
         {
             ContentDialog successDialog = new ContentDialog()
