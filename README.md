@@ -28,31 +28,31 @@ To save a recipe, enter a name and click the 'save' button.  Names must be uniqu
 ### Load
 TO load a recipe, select the name of the recipe from the left list.  Then click the 'load' button.
 
-# INSTALL instructions
+## INSTALL instructions
 
-## Compile
+### Compile
 Please compile your own version from the Microsoft Visual Studio .sln (solution), and files provided.
 
-## Released binaries
+### Released binaries
 Or check the releases section for the latest x86 release. Please run the Install.ps1 powershell script allow Developer access.  This software was developed as a UWP app, so sideloading or Developer status is required.   
 
 ### WARNING Security WARNING
 If you worry about your security (and you should!) Please compile your own version with your own security certificate.  I do not promise to keep the binaries up to date, and you should be wary of anyone asking you to run powershell scripts, even a fellow bread baker.
 
-# Development
+## Development
 I decided on Universal Windows Platform for this project using XAML for UI and C# for program code.  I decided on these tools because they are recommended by Microsoft for developping
 UWP apps.  Of course alternatives exist.  I chose these because I thought it would broaden my skillset to use a (new to me) coding language and markup.  I would appreciate any suggestions from coders or bakers for how to improve this app.
 In the future, I would like to make iOS and Android versions also because everyone needs bread dough sticky fingerprints on their phones and tablets!  I may do this with Xamarin, but I may convert the code to javascript and use React.  If you have a (reasonable) opinion, let me know!
 
-# Enjoy baking
+## Enjoy baking
 Please don't forget your love of baking even though this software may transform your life.  It may be super addictive to tweak your recipe until you have it just right.  I hope you find that perfect loaf.  But don't forget your love of getting your hands covered in flour, kneading that yeasty dough until your shoulders ache and then enjoying the wonderful scented crust of a freshly baked loaf.  Good luck & bon appetite!
 
-# Thanks
+## Thanks
 Thanks to Eric Sink for SQLitePCLRaw package.
 Thanks to Microsoft for Sqlite.Core and .NETCore
 
 * "Baker's percentage" or "baker's math": every ingredient is expressed as a percentage of the flour weight (not total weight). The flour weight is expressed as 100%.  So Ratio = Water/Flour x 100.
 
-# Disclaimer
+## Disclaimer
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
