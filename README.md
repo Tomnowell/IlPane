@@ -39,6 +39,10 @@ Or check the releases section for the latest x86 release. Please run the Install
 ### WARNING Security Hazard
 If you worry about your security (and you should!) Please compile your own version with your own certificate.  I do not promise to keep the binaries up to date, and you should be wary of anyone asking you to run powershell scripts without reading them first.  Even a fellow bread baker.
 
+# Development
+I decided on Universal Windows Platform for this project using XAML for UI and C# for program code.  I decided on these tools because they seem to be recommended by Microsoft for developping
+UWP apps.  I also thought it would broaden my skillset to use a (new to me) coding language and markup.  I would appreciate any suggestions from coders or bakers for how to improve this app.
+
 # Enjoy baking
 Please don't forget your love of baking even though this software may transform your life.  It may be super addictive to tweak your recipe until you have it just right.  I hope you find that perfect loaf.  But don't forget your love of getting your hands covered in flour, kneading that yeasty dough until your shoulders ache and then enjoying the wonderful scented crust of a freshly baked loaf.  Good luck & bon appetite!
 
