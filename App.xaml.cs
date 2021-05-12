@@ -23,7 +23,7 @@ namespace Pane
             this.Suspending += OnSuspending;
 
             DataAccess.InitializeDatabase();
-            DataAccess.GetData();
+            //DataAccess.GetRecipeListFromDatabase();
         }
 
         /// <summary>
@@ -47,6 +47,11 @@ namespace Pane
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: Load state from previously suspended application
+
+                    //on resume
+
+                    //DataAccess.InitializeDatabase();
+
                 }
 
                 // Place the frame in the current Window
@@ -87,7 +92,10 @@ namespace Pane
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
+            //Save current state
+            //
             //TODO: Save application state and stop any background activity
+            //DataAccess.SaveCurrentState();
             deferral.Complete();
         }
     }
