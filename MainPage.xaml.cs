@@ -26,7 +26,7 @@ namespace Pane
             if (RecipeName.Text.Length != 0)
             {
 
-                DataAccess.AddData(CreateCurrentLoaf());
+                DataAccess.AddData(CreateCurrentLoaf(), "recipeTable");
 
                 Output.ItemsSource = DataAccess.GetData();
             }
@@ -142,7 +142,7 @@ namespace Pane
             Output.ItemsSource = DataAccess.GetData();
 
             // Keep track of what loaf is displayed
-            DataAccess.AddPersistenceData(currentLoaf);
+            DataAccess.AddData(currentLoaf, "persistenceTable");
 
             return currentLoaf;
         }
@@ -229,7 +229,7 @@ namespace Pane
                 {
                     // If there is a valid name for the recipe 
 
-                    DataAccess.AddData(CreateCurrentLoaf());
+                    DataAccess.AddData(CreateCurrentLoaf(),"recipeTable");
                     DisplaySuccess("Recipe Saved");
                     Application.Current.Exit();
                 }

@@ -74,10 +74,10 @@ namespace Pane
             }
         }
 
-        public static void OverwriteData(Loaf currentLoaf)
+        public static void OverwriteData(Loaf currentLoaf, string table)
         {
-                DeleteData(currentLoaf);
-                AddData(currentLoaf);
+                DeleteData(currentLoaf, table);
+                AddData(currentLoaf, table);
         }
         public static void AddData(Loaf currentLoaf, string table)
         {
