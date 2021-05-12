@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
 using Microsoft.Data.Sqlite;
 using Windows.Storage;
 
@@ -39,13 +35,19 @@ namespace Pane
             {
                 db.Open();
 
-                String tableCommand = "CREATE TABLE IF NOT EXISTS \"recipeTable\"" + DBTEMPLATE;    
+                String tableCommandOne = "CREATE TABLE IF NOT EXISTS \"recipeTable\"" + DBTEMPLATE;    
 
-                SqliteCommand createTable = new SqliteCommand(tableCommand, db);
-                createTable.ExecuteReader();
+                SqliteCommand createTableOne = new SqliteCommand(tableCommandOne, db);
+                createTableOne.ExecuteReader();
+
+                String tableCommandTwo = "CREATE TABLE IF NOT EXISTS \"persistenceTable\"" + DBTEMPLATE;
+                SqliteCommand createTableTwo = new SqliteCommand(tableCommandTwo, db);
+                createTableTwo.ExecuteReader();
             }
            
         }
+
+        
         public static void DeleteData(Loaf currentLoaf)
         {
             // Deletes the database entry of the selected item in ListView
@@ -108,11 +110,58 @@ namespace Pane
                 {
                     insertCommand.ExecuteReader();
                 }
+
+                //Sqlite ErrorCode 19 - (Name) value is not unique but should be.
                 catch(SqliteException ex) when (ex.SqliteErrorCode == 19)
                 {
-                    //Alert overwrite
+                    // Alert overwrite is done in view controller.
 
-                    //Assume Yes
+                    // So go ahead and overwrite
+                    OverwriteData(currentLoaf);
+                }
+                db.Close();
+            }
+
+        }
+        public static void AddPersistenceData(Loaf currentLoaf)
+        {
+            // Method to add to the persistenceTable of the database.
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+
+                // Use parameterized query to prevent SQL injection attacks
+                SqliteCommand insertCommand = new SqliteCommand();
+                insertCommand.Connection = db;
+                insertCommand.CommandText = "INSERT INTO  VALUES (NULL,@Name," +
+                    "@TotalWeight, @FlourWeight, @WaterWeight, @SaltWeight, " +
+                    "@OtherDryWeight, @OtherWetWeight, @Ratio, @SaltPercent, " +
+                    "@OtherDryPercent, @TotalDryWeight, @TotalWetWeight, @Notes);";
+                insertCommand.Parameters.AddWithValue("@Name", "persistenceLoaf");
+                insertCommand.Parameters.AddWithValue("@TotalWeight", currentLoaf.TotalWeight);
+                insertCommand.Parameters.AddWithValue("@FlourWeight", currentLoaf.FlourWeight);
+                insertCommand.Parameters.AddWithValue("@WaterWeight", currentLoaf.WaterWeight);
+                insertCommand.Parameters.AddWithValue("@SaltWeight", currentLoaf.SaltWeight);
+                insertCommand.Parameters.AddWithValue("@OtherDryWeight", currentLoaf.OtherDryWeight);
+                insertCommand.Parameters.AddWithValue("@OtherWetWeight", currentLoaf.OtherWetWeight);
+                insertCommand.Parameters.AddWithValue("@Ratio", currentLoaf.Ratio);
+                insertCommand.Parameters.AddWithValue("@SaltPercent", currentLoaf.SaltPercent);
+                insertCommand.Parameters.AddWithValue("@OtherDryPercent", currentLoaf.OtherDryPercent);
+                insertCommand.Parameters.AddWithValue("@TotalDryWeight", currentLoaf.TotalDryWeight);
+                insertCommand.Parameters.AddWithValue("@TotalWetWeight", currentLoaf.TotalWetWeight);
+                insertCommand.Parameters.AddWithValue("@Notes", currentLoaf.Notes);
+                try
+                {
+                    insertCommand.ExecuteReader();
+                }
+
+                //Sqlite ErrorCode 19 - (Name) value is not unique but should be.
+                catch (SqliteException ex) when (ex.SqliteErrorCode == 19)
+                {
+                    // Alert overwrite is done in view controller.
+
+                    // So go ahead and overwrite
                     OverwriteData(currentLoaf);
                 }
                 db.Close();
@@ -133,22 +182,19 @@ namespace Pane
                 SqliteCommand selectCommand = new SqliteCommand();
                 selectCommand.Connection = db;
 
-                // Use parameterized query to prevent SQL injection attacks
+                // SQL command get the Name value of all entries in the database
                 selectCommand.CommandText = "SELECT Name from recipeTable;";
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
                 
                 while (query.Read())
                 {
-                    //Here make a Loaf object and copy data from reader.
-                    
-                    //currentLoaf.TotalWeight = query["totalWeight"];
+                    //Add each Name to the entries list
                     entries.Add(query.GetString(0));
                 }
 
                 db.Close();
             }
-
             return entries;
 
         }
@@ -174,7 +220,7 @@ namespace Pane
                 {
                     while (query.Read())
                     {
-                        currentLoaf.Key1 = query.GetInt32(0);
+                        currentLoaf.Key = query.GetInt32(0);
                         currentLoaf.RecipeName = query.GetString(1);
                         currentLoaf.TotalWeight = query.GetFloat(2);
                         currentLoaf.FlourWeight = query.GetFloat(3);

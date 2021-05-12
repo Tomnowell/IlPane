@@ -141,6 +141,9 @@ namespace Pane
             Notes.Text = currentLoaf.Notes;
             Output.ItemsSource = DataAccess.GetData();
 
+            // Keep track of what loaf is displayed
+            DataAccess.AddPersistenceData(currentLoaf);
+
             return currentLoaf;
         }
 

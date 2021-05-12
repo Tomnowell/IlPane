@@ -7,7 +7,7 @@ namespace Pane
     {
         // Variables for name and database key
         private string recipeName;
-        private int Key;
+        private int key;
 
         // Ingredient variables
         private float flourWeight;
@@ -27,6 +27,9 @@ namespace Pane
         // Keep track of notes:
         private string notes = "";
 
+        //Track priority of calculation (to prioritize ratio or weights)
+        private bool _calculateByRatio;
+
         public float FlourWeight { get => flourWeight; set => flourWeight = value; }
         public  float TotalWeight { get => totalWeight; set => totalWeight = value; }
         public float WaterWeight { get => waterWeight; set => waterWeight = value; }
@@ -40,16 +43,25 @@ namespace Pane
         public float TotalDryWeight { get => totalDryWeight; set => totalDryWeight = value; }
         public float TotalWetWeight { get => totalWetWeight; set => totalWetWeight = value; }
         public string RecipeName { get => recipeName; set => recipeName = value; }
-        public int Key1 { get => Key; set => Key = value; }
+        public int Key { get => key; set => key = value; }
+        public bool CalculateByRatio { get => _calculateByRatio; set => _calculateByRatio = value; }
 
         // Basic constructor 
-        public Loaf() { } 
+        public Loaf() 
+        {
+            //Set default behaviour
+            CalculateByRatio = true;
+            Key = -1;
+        } 
 
         // Normal constructor
         public Loaf(string recipeName, float flourWeight, float totalWeight, float waterWeight,
             float saltWeight, float otherDryWeight, float otherWetWeight, float ratio,
             float saltPercent, float otherDryPercent, string notes)
         {
+            //Set default behaviour
+            CalculateByRatio = true;
+
             if (Key < 0)
             {
                 // This only gets set when added to the database.
@@ -75,6 +87,9 @@ namespace Pane
             float saltWeight, float otherDryWeight, float otherWetWeight, float ratio, float saltPercent, 
             float otherDryPercent, string notes)
         {
+            //Set default behaviour
+            CalculateByRatio = true;
+
             if (Key < 0)
             {
                 // This only gets set when added to the database.
@@ -103,18 +118,40 @@ namespace Pane
 
         public void InitializeLoaf()
         {
-            if (this.IsValidWeights())
+            // Check priority of calculation
+            // Prioritise  ratio over weight
+            if (CalculateByRatio == true)
             {
-                CalculateRatiosFromWeights();
+                if (this.IsValidRatios())
+                {
+                    CalculateWeightsFromRatios();
+                }
+                else if (this.IsValidWeights())
+                {
+                    CalculateRatiosFromWeights();
+                }
+                else
+                {
+                    var messageDialog = new MessageDialog("Invalid weights or ratios.");
+                }
             }
-            else if (this.IsValidRatios())
-            {
-                CalculateWeightsFromRatios();
-            }
+            // Prioritise weight over ratio
             else
             {
-                var messageDialog = new MessageDialog("Invalid weights or ratios."); ;
+                if (this.IsValidWeights())
+                {
+                    CalculateRatiosFromWeights();
+                }
+                else if (this.IsValidRatios())
+                {
+                    CalculateWeightsFromRatios();
+                }
+                else
+                {
+                    var messageDialog = new MessageDialog("Invalid weights or ratios.");
+                }
             }
+            
         }
         public void CalculateDryWeight()
         {
