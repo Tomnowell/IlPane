@@ -57,10 +57,8 @@ namespace Pane
         // Normal constructor
         public Loaf(string recipeName, float flourWeight, float totalWeight, float waterWeight,
             float saltWeight, float otherDryWeight, float otherWetWeight, float ratio,
-            float saltPercent, float otherDryPercent, string notes)
+            float saltPercent, float otherDryPercent, string notes, bool calculateByRatio)
         {
-            //Set default behaviour
-            CalculateByRatio = true;
 
             if (Key < 0)
             {
@@ -78,6 +76,7 @@ namespace Pane
             SaltPercent = saltPercent;
             OtherDryPercent = otherDryPercent;
             Notes = notes;
+            CalculateByRatio = calculateByRatio;
 
             this.InitializeLoaf();
         }
@@ -85,10 +84,8 @@ namespace Pane
         //Complete constructor
         public Loaf(int key, string recipeName, float flourWeight, float totalWeight, float waterWeight,
             float saltWeight, float otherDryWeight, float otherWetWeight, float ratio, float saltPercent, 
-            float otherDryPercent, string notes)
+            float otherDryPercent, string notes, bool calculateByRatio)
         {
-            //Set default behaviour
-            CalculateByRatio = true;
 
             if (Key < 0)
             {
@@ -111,6 +108,7 @@ namespace Pane
             SaltPercent = saltPercent;
             OtherDryPercent = otherDryPercent;
             Notes = notes;
+            CalculateByRatio = calculateByRatio;
 
             this.InitializeLoaf();
         }

@@ -48,7 +48,7 @@ namespace Pane
         }
 
         
-        public static void DeleteData(Loaf currentLoaf)
+        public static void DeleteData(Loaf currentLoaf, string table)
         {
             // Deletes the database entry of the selected item in ListView
             if (currentLoaf == null || currentLoaf.RecipeName == "")
@@ -66,7 +66,7 @@ namespace Pane
                     deleteCommand.Connection = db;
 
                     // Use parameterized query to prevent SQL injection attacks
-                    deleteCommand.CommandText = "DELETE FROM recipeTable WHERE Name = @Name;";
+                    deleteCommand.CommandText = "DELETE FROM " +table+ " WHERE Name = @Name;";
                     deleteCommand.Parameters.AddWithValue("@Name", currentLoaf.RecipeName);
                     deleteCommand.ExecuteReader();
                     db.Close();
@@ -89,7 +89,7 @@ namespace Pane
                 // Use parameterized query to prevent SQL injection attacks
                 SqliteCommand insertCommand = new SqliteCommand();
                 insertCommand.Connection = db;
-                insertCommand.CommandText = "INSERT INTO" + table + "VALUES (NULL,@Name,"+
+                insertCommand.CommandText = "INSERT INTO " + table + " VALUES (NULL,@Name,"+
                     "@TotalWeight, @FlourWeight, @WaterWeight, @SaltWeight, " +
                     "@OtherDryWeight, @OtherWetWeight, @Ratio, @SaltPercent, " + 
                     "@OtherDryPercent, @TotalDryWeight, @TotalWetWeight, @Notes);";
@@ -117,7 +117,7 @@ namespace Pane
                     // Alert overwrite is done in view controller.
 
                     // So go ahead and overwrite
-                    OverwriteData(currentLoaf);
+                    OverwriteData(currentLoaf, table);
                 }
                 db.Close();
             }

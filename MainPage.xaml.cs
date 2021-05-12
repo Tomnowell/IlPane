@@ -36,7 +36,7 @@ namespace Pane
             }
         }
 
-        private Loaf CreateCurrentLoaf()
+        private Loaf CreateCurrentLoaf(bool calculateByRatio = true)
         {
             // Process the UI inputs into Loaf object
 
@@ -44,7 +44,7 @@ namespace Pane
                 ValidateFloat(TotalWeight.Text), ValidateFloat(WaterWeight.Text),
                 ValidateFloat(SaltWeight.Text), ValidateFloat(OtherDryWeight.Text),
                 ValidateFloat(OtherWetWeight.Text), ValidateFloat(Ratio.Text),
-                ValidateFloat(SaltPercent.Text), ValidateFloat(OtherDryPercent.Text), Notes.Text);
+                ValidateFloat(SaltPercent.Text), ValidateFloat(OtherDryPercent.Text), Notes.Text, calculateByRatio);
             return currentLoaf;
         }
         private void Calculate (object sender, RoutedEventArgs e)
@@ -109,7 +109,7 @@ namespace Pane
                         if (currentLoaf != null && currentLoaf.RecipeName != "" && currentLoaf.RecipeName != null)
                         {
 
-                            DataAccess.DeleteData(currentLoaf);
+                            DataAccess.DeleteData(currentLoaf, "recipeTable");
 
                             //Display
                             DisplayLoaf(currentLoaf);
@@ -176,6 +176,8 @@ namespace Pane
             SaltPercent.Text = "";
             OtherDryPercent.Text = "";
             Notes.Text = "";
+
+            DisplayLoaf(CreateCurrentLoaf());
         }
 
         private void ClearWeights(object sender, RoutedEventArgs e)
@@ -190,6 +192,7 @@ namespace Pane
             SaltWeight.Text = "";
             OtherDryWeight.Text = "";
             OtherWetWeight.Text = "";
+            DisplayLoaf(CreateCurrentLoaf(false));
         }
 
         private void ClearRatios(object sender, RoutedEventArgs e)
@@ -197,7 +200,6 @@ namespace Pane
             // Just reset ratio textboxes
 
             // This will not affect any saved recipes
-
             Ratio.Text = "";
             SaltPercent.Text = "";
             OtherDryPercent.Text = "";
