@@ -35,17 +35,18 @@ namespace Pane
             {
                 db.Open();
 
-                String tableCommandOne = "CREATE TABLE IF NOT EXISTS \"recipeTable\"" + DBTEMPLATE;    
+                String tableCommandOne = "CREATE TABLE IF NOT EXISTS \"recipeTable\"" + DBTEMPLATE+";";    
 
                 SqliteCommand createTableOne = new SqliteCommand(tableCommandOne, db);
                 createTableOne.ExecuteReader();
 
-                String tableCommandTwo = "CREATE TABLE IF NOT EXISTS \"persistenceTable\"" + DBTEMPLATE;
+                String tableCommandTwo = "CREATE TABLE IF NOT EXISTS \"persistenceTable\"" + DBTEMPLATE+";";
                 SqliteCommand createTableTwo = new SqliteCommand(tableCommandTwo, db);
                 createTableTwo.ExecuteReader();
             }
            
         }
+
 
         public static Loaf GetPreviousState()
         {
@@ -64,7 +65,6 @@ namespace Pane
 
             Loaf previousLoaf = GetRecipeFromDatabaseByName(lastEntry[0], "persistenceTable");
             return previousLoaf;
-
         }
             
     

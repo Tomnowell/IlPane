@@ -23,7 +23,6 @@ namespace Pane
             this.Suspending += OnSuspending;
 
             DataAccess.InitializeDatabase();
-            //DataAccess.GetRecipeListFromDatabase();
         }
 
         /// <summary>

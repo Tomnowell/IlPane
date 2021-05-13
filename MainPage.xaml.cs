@@ -15,13 +15,18 @@ namespace Pane
         {
             this.InitializeComponent();
 
-            // Display current database
-            Output.ItemsSource = DataAccess.GetRecipeListFromDatabase();
-
-            //Display previous state
-            DisplayLoaf(DataAccess.GetPreviousState());
+            this.InitializeUI();
         }
 
+        private void InitializeUI()
+        {
+            // Display current recipes list
+            this.Output.ItemsSource = DataAccess.GetRecipeListFromDatabase();
+
+            //Display previous recipe
+            //this.DisplayLoaf(DataAccess.GetPreviousState());
+        }
+    
         private void AddData(object sender, RoutedEventArgs e)
         {
             //When Save is clicked: Add data and refresh.
