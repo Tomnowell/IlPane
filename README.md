@@ -31,18 +31,18 @@ TO load a recipe, select the name of the recipe from the left list.  Then click 
 ## INSTALL instructions
 
 ### Compile
-Please compile your own version from the Microsoft Visual Studio .sln (solution), and files provided.
+Please compile your own version from the Microsoft Visual Studio .sln (solution), and source code files provided.
 
 ### Released binaries
-Or check the releases section for the latest x86 release. Please run the Install.ps1 powershell script allow Developer access.  This software was developed as a UWP app, so sideloading or Developer status is required.   
+Or check the releases section for the latest x86 release. Please run the Install.ps1 powershell script and allow Developer mode if not already enabled.   
 
 ### WARNING Security WARNING
 If you worry about your security (and you should!) Please compile your own version with your own security certificate.  I do not promise to keep the binaries up to date, and you should be wary of anyone asking you to run powershell scripts, even a fellow bread baker.
 
 ## Development
-I decided on Universal Windows Platform for this project using XAML for UI and C# for program code.  I decided on these tools because they are recommended by Microsoft for developping
-UWP apps.  Of course alternatives exist.  I chose these because I thought it would broaden my skillset to use a (new to me) coding language and markup.  I would appreciate any suggestions from coders or bakers for how to improve this app.
-In the future, I would like to make iOS and Android versions also because everyone needs bread dough sticky fingerprints on their phones and tablets!  I may do this with Xamarin, but I may convert the code to javascript and use React.  If you have a (reasonable) opinion, let me know!
+I decided on Universal Windows Platform for this project using XAML for UI and C# for program code.  I decided on these tools because they are recommended by Microsoft for developing UWP apps.  I thought using these tools would broaden my skillset to use a (new to me) coding language and markup.  
+
+I would appreciate any suggestions from coders or bakers for how to improve this app.  In the future, I would like to make iOS and Android versions also because everyone needs bread dough sticky fingerprints on their phones and tablets!  I may do this with Xamarin, but I may use React or just go native and make native swift and java versions.  If you have a (reasonable) opinion, let me know!
 
 ## Enjoy baking
 Please don't forget your love of baking even though this software may transform your life.  It may be super addictive to tweak your recipe until you have it just right.  I hope you find that perfect loaf.  But don't forget your love of getting your hands covered in flour, kneading that yeasty dough until your shoulders ache and then enjoying the wonderful scented crust of a freshly baked loaf.  Good luck & bon appetite!
