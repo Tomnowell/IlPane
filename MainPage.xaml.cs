@@ -24,7 +24,7 @@ namespace Pane
             this.Output.ItemsSource = DataAccess.GetRecipeListFromDatabase();
 
             //Display previous recipe
-            //this.DisplayLoaf(DataAccess.GetPreviousState());
+            DisplayLoaf(DataAccess.GetPreviousState());
         }
     
         private void AddData(object sender, RoutedEventArgs e)
@@ -34,7 +34,6 @@ namespace Pane
             {
 
                 DataAccess.AddEntryToDatabase(CreateCurrentLoaf(), "recipeTable");
-
                 Output.ItemsSource = DataAccess.GetRecipeListFromDatabase();
             }
             else
@@ -85,7 +84,7 @@ namespace Pane
 
         private void DeleteRecipe (object sender, RoutedEventArgs e)
         {
-            // This is messy, refactor soon
+            
             if (Output.Items.Count < 1)
             {
                 //There are no items to delete
@@ -153,7 +152,7 @@ namespace Pane
             // Keep track of what loaf is displayed
             // Keep persistence! 
             
-            DataAccess.SaveCurrentState();
+            //DataAccess.SaveCurrentState();
             return currentLoaf;
         }
 
@@ -165,7 +164,7 @@ namespace Pane
                 float temp = (float)Convert.ToDouble(input);
                 return temp;
             }
-            catch (FormatException)
+            catch (Exception)
             {
                 // Warning, this may have some unintended consequences :S
                 return 0.00F;
@@ -213,11 +212,12 @@ namespace Pane
             Ratio.Text = "";
             SaltPercent.Text = "";
             OtherDryPercent.Text = "";
+
+            DataAccess.SaveCurrentState(CreateCurrentLoaf());
         }
 
         private void Exit (object sender, RoutedEventArgs e)
         {
-            DataAccess.GetPreviousState();
             DisplayExitDialog(RecipeName.Text);
         }
 
@@ -233,7 +233,7 @@ namespace Pane
             };
 
             ContentDialogResult result = await exitFileDialog.ShowAsync();
-
+            DataAccess.SaveCurrentState(CreateCurrentLoaf());
             // Delete the file if the user clicked the primary button.
             /// Otherwise, do nothing.
             if (result == ContentDialogResult.Primary)
@@ -243,6 +243,7 @@ namespace Pane
                     // If there is a valid name for the recipe 
 
                     DataAccess.AddEntryToDatabase(CreateCurrentLoaf(),"recipeTable");
+                    
                     DisplaySuccess("Recipe Saved");
                     Application.Current.Exit();
                 }
@@ -279,11 +280,6 @@ namespace Pane
             };
 
             await failureDialog.ShowAsync();
-        }
-
-        private void Notes_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }
