@@ -1,8 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
-using Windows.UI.Popups;
+
 
 
 namespace Pane
@@ -16,19 +15,27 @@ namespace Pane
         {
             this.InitializeComponent();
 
-            // Display current database
-            Output.ItemsSource = DataAccess.GetData();
+            this.InitializeUI();
         }
 
+        private void InitializeUI()
+        {
+            // Display current recipes list
+            this.Output.ItemsSource = DataAccess.GetRecipeListFromDatabase();
+
+            //Display previous recipe
+            //this.DisplayLoaf(DataAccess.GetPreviousState());
+        }
+    
         private void AddData(object sender, RoutedEventArgs e)
         {
             //When Save is clicked: Add data and refresh.
             if (RecipeName.Text.Length != 0)
             {
 
-                DataAccess.AddData(CreateCurrentLoaf());
+                DataAccess.AddEntryToDatabase(CreateCurrentLoaf(), "recipeTable");
 
-                Output.ItemsSource = DataAccess.GetData();
+                Output.ItemsSource = DataAccess.GetRecipeListFromDatabase();
             }
             else
             {
@@ -36,17 +43,7 @@ namespace Pane
             }
         }
 
-        private Loaf CreateCurrentLoaf()
-        {
-            // Process the UI inputs into Loaf object
-
-            Loaf currentLoaf = new Loaf(RecipeName.Text, ValidateFloat(FlourWeight.Text),
-                ValidateFloat(TotalWeight.Text), ValidateFloat(WaterWeight.Text),
-                ValidateFloat(SaltWeight.Text), ValidateFloat(OtherDryWeight.Text),
-                ValidateFloat(OtherWetWeight.Text), ValidateFloat(Ratio.Text),
-                ValidateFloat(SaltPercent.Text), ValidateFloat(OtherDryPercent.Text), Notes.Text);
-            return currentLoaf;
-        }
+        
         private void Calculate (object sender, RoutedEventArgs e)
         { 
             // Refresh the UI
@@ -69,7 +66,7 @@ namespace Pane
                     if (name != null)
                     {
                         //Look for that  recipe's name in the db
-                        Loaf currentLoaf = DataAccess.GetRecipe(name);
+                        Loaf currentLoaf = DataAccess.GetRecipeFromDatabaseByName(name);
 
                         DisplayLoaf(currentLoaf);
                     }
@@ -105,11 +102,11 @@ namespace Pane
                     }
                     else
                     {
-                        Loaf currentLoaf = DataAccess.GetRecipe(name);
+                        Loaf currentLoaf = DataAccess.GetRecipeFromDatabaseByName(name);
                         if (currentLoaf != null && currentLoaf.RecipeName != "" && currentLoaf.RecipeName != null)
                         {
 
-                            DataAccess.DeleteData(currentLoaf);
+                            DataAccess.DeleteEntryFromDatabaseByName(currentLoaf, "recipeTable");
 
                             //Display
                             DisplayLoaf(currentLoaf);
@@ -123,8 +120,18 @@ namespace Pane
                 }
             }
         }
+        public Loaf CreateCurrentLoaf(bool calculateByRatio = true)
+        {
+            // Process the UI inputs into Loaf object
 
-        private Loaf DisplayLoaf(Loaf currentLoaf)
+            Loaf currentLoaf = new Loaf(RecipeName.Text, ValidateFloat(FlourWeight.Text),
+                ValidateFloat(TotalWeight.Text), ValidateFloat(WaterWeight.Text),
+                ValidateFloat(SaltWeight.Text), ValidateFloat(OtherDryWeight.Text),
+                ValidateFloat(OtherWetWeight.Text), ValidateFloat(Ratio.Text),
+                ValidateFloat(SaltPercent.Text), ValidateFloat(OtherDryPercent.Text), Notes.Text, calculateByRatio);
+            return currentLoaf;
+        }
+        public Loaf DisplayLoaf(Loaf currentLoaf)
         {
             // Update UI textboxes with the values in currentLoaf
 
@@ -139,11 +146,14 @@ namespace Pane
             SaltPercent.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.SaltPercent));
             OtherDryPercent.Text = string.Format("{0:N2}", Convert.ToString(currentLoaf.OtherDryPercent));
             Notes.Text = currentLoaf.Notes;
-            Output.ItemsSource = DataAccess.GetData();
+           
+            // Refresh List
+            Output.ItemsSource = DataAccess.GetRecipeListFromDatabase();
 
             // Keep track of what loaf is displayed
-            DataAccess.AddPersistenceData(currentLoaf);
-
+            // Keep persistence! 
+            
+            DataAccess.SaveCurrentState();
             return currentLoaf;
         }
 
@@ -176,6 +186,8 @@ namespace Pane
             SaltPercent.Text = "";
             OtherDryPercent.Text = "";
             Notes.Text = "";
+
+            DisplayLoaf(CreateCurrentLoaf());
         }
 
         private void ClearWeights(object sender, RoutedEventArgs e)
@@ -190,6 +202,7 @@ namespace Pane
             SaltWeight.Text = "";
             OtherDryWeight.Text = "";
             OtherWetWeight.Text = "";
+            DisplayLoaf(CreateCurrentLoaf(false));
         }
 
         private void ClearRatios(object sender, RoutedEventArgs e)
@@ -197,7 +210,6 @@ namespace Pane
             // Just reset ratio textboxes
 
             // This will not affect any saved recipes
-
             Ratio.Text = "";
             SaltPercent.Text = "";
             OtherDryPercent.Text = "";
@@ -205,6 +217,7 @@ namespace Pane
 
         private void Exit (object sender, RoutedEventArgs e)
         {
+            DataAccess.GetPreviousState();
             DisplayExitDialog(RecipeName.Text);
         }
 
@@ -229,7 +242,7 @@ namespace Pane
                 {
                     // If there is a valid name for the recipe 
 
-                    DataAccess.AddData(CreateCurrentLoaf());
+                    DataAccess.AddEntryToDatabase(CreateCurrentLoaf(),"recipeTable");
                     DisplaySuccess("Recipe Saved");
                     Application.Current.Exit();
                 }
