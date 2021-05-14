@@ -49,9 +49,21 @@ namespace Pane
         // Basic constructor 
         public Loaf() 
         {
-            //Set default behaviour
-            CalculateByRatio = true;
+            //Set empty loaf
             Key = -1;
+            RecipeName = "None";
+            TotalWeight = 0.00F;
+            FlourWeight = 0.00F;
+            WaterWeight = 0.00F;
+            SaltWeight = 0.00F;
+            OtherDryWeight = 0.00F;
+            OtherWetWeight = 0.00F;
+            Ratio = 0.00F;
+            SaltPercent = 0.00F;
+            OtherDryPercent = 0.00F;
+            notes = "";
+            CalculateByRatio = true;
+            
         } 
 
         // Normal constructor
