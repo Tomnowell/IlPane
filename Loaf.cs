@@ -126,142 +126,143 @@ namespace Pane
         }
 
 
-    public void InitializeLoaf()
-    {
-        // Check priority of calculation
-        // Prioritise  ratio over weight
-        if (CalculateByRatio == true)
+        public void InitializeLoaf()
         {
-            if (this.IsValidRatios())
+            // Check priority of calculation
+            // Prioritise  ratio over weight
+            if (CalculateByRatio == true)
             {
-                CalculateWeightsFromRatios();
+                if (this.IsValidRatios())
+                {
+                    CalculateWeightsFromRatios();
+                }
+                else if (this.IsValidWeights())
+                {
+                    CalculateRatiosFromWeights();
+                }
+                else
+                {
+                    var messageDialog = new MessageDialog("Invalid weights or ratios.");
+                }
             }
-            else if (this.IsValidWeights())
+            // Prioritise weight over ratio
+            else
             {
-                CalculateRatiosFromWeights();
+                if (this.IsValidWeights())
+                {
+                    CalculateRatiosFromWeights();
+                }
+                else if (this.IsValidRatios())
+                {
+                    CalculateWeightsFromRatios();
+                }
+                else
+                {
+                    //var messageDialog = new MessageDialog("Invalid weights or ratios.");
+                }
+            }
+
+        }
+        public void CalculateDryWeight()
+        {
+            this.TotalDryWeight = FlourWeight + SaltWeight + OtherDryWeight;
+        }
+
+        public void CalculateWetWeight()
+        {
+            this.TotalWetWeight = WaterWeight + OtherWetWeight;
+        }
+
+        public void CalculateTotalWeight()
+        {
+            this.CalculateDryWeight();
+            this.CalculateWetWeight();
+            this.TotalWeight = TotalDryWeight + TotalWetWeight;
+        }
+
+        public void CalculateRatiosFromWeights()
+        {
+            // Calculate values from weights
+
+            this.CalculateTotalWeight();
+
+            //** Baking note **
+            // Bakers measure hydration as a ratio of dry to wet ingredients
+            // Usually flour & salt to water
+            this.Ratio = (this.FlourWeight * 100) / this.TotalWeight;
+
+            //If salt weight is set
+            if (this.SaltWeight > 0)
+            {
+                this.SaltPercent = (this.SaltWeight / this.FlourWeight) * 100;
+            }
+            else if (this.SaltPercent > 0)
+            {
+                this.SaltWeight = this.FlourWeight * (this.SaltPercent / 100);
+            }
+
+        }
+        public void CalculateWeightsFromRatios()
+        {
+            if (this.TotalWeight == 0 || this.TotalWeight < this.WaterWeight)
+            {
+                //Error weights not set!
+                throw new Exception();
+            }
+            if (saltPercent > 0)
+            {
+                // Calculate salt by ratio (ratio has been set)
+                this.FlourWeight = this.TotalWeight * (this.Ratio / 100);
+                this.SaltWeight = this.FlourWeight * (this.SaltPercent / 100);
+                if (this.OtherDryPercent > 0)
+                {
+                    this.OtherDryWeight = this.FlourWeight / (this.OtherDryPercent / 100);
+                }
+                this.TotalDryWeight = this.FlourWeight + this.SaltWeight + this.OtherDryWeight;
+                this.TotalWetWeight = this.TotalWeight - this.TotalDryWeight;
+                this.WaterWeight = this.totalWetWeight - this.OtherWetWeight;
             }
             else
             {
-                var messageDialog = new MessageDialog("Invalid weights or ratios.");
+                // Calculate salt by weight (ratio not set)
+                this.FlourWeight = this.TotalWeight * (this.Ratio / 100);
+
+                this.TotalDryWeight = this.FlourWeight + this.SaltWeight + this.OtherDryWeight;
+
+                this.TotalWetWeight = this.TotalWeight - this.TotalDryWeight;
+                this.WaterWeight = this.totalWetWeight - this.OtherWetWeight;
+
+                this.SaltPercent = (this.SaltWeight / this.FlourWeight) * 100;
             }
+
         }
-        // Prioritise weight over ratio
-        else
+
+        public bool IsValidWeights()
         {
-            if (this.IsValidWeights())
+            //Check if weights can calculate a ratio.  Consider using exceptions to 
+            //return more specific information if values are invalid
+            if (this.FlourWeight > 0.00 &&
+                (this.WaterWeight > 0.00 || (this.ratio > 0 && this.ratio < 100)))
             {
-                CalculateRatiosFromWeights();
+                return true;
             }
-            else if (this.IsValidRatios())
+            else if (this.FlourWeight > 0.00 && this.TotalWeight > this.FlourWeight)
             {
-                CalculateWeightsFromRatios();
+                return true;
             }
-            else
+            else return false;
+        }
+
+        public bool IsValidRatios()
+        {
+            //Check if given values can calculate weights.  Consider using exceptions to 
+            //return more specific information if values are invalid
+            //
+            if ((this.TotalWeight > 0 || this.FlourWeight > 0) && (this.Ratio > 0.00 && this.Ratio < 100))
             {
-                //var messageDialog = new MessageDialog("Invalid weights or ratios.");
+                return true;
             }
+            else return false;
         }
-
-    }
-    public void CalculateDryWeight()
-    {
-        this.TotalDryWeight = FlourWeight + SaltWeight + OtherDryWeight;
-    }
-
-    public void CalculateWetWeight()
-    {
-        this.TotalWetWeight = WaterWeight + OtherWetWeight;
-    }
-
-    public void CalculateTotalWeight()
-    {
-        this.CalculateDryWeight();
-        this.CalculateWetWeight();
-        this.TotalWeight = TotalDryWeight + TotalWetWeight;
-    }
-
-    public void CalculateRatiosFromWeights()
-    {
-        // Calculate values from weights
-
-        this.CalculateTotalWeight();
-
-        //** Baking note **
-        // Bakers measure hydration as a ratio of dry to wet ingredients
-        // Usually flour & salt to water
-        this.Ratio = (this.FlourWeight * 100) / this.TotalWeight;
-
-        //If salt weight is set
-        if (this.SaltWeight > 0)
-        {
-            this.SaltPercent = (this.SaltWeight / this.FlourWeight) * 100;
-        }
-        else if (this.SaltPercent > 0)
-        {
-            this.SaltWeight = this.FlourWeight * (this.SaltPercent / 100);
-        }
-
-    }
-    public void CalculateWeightsFromRatios()
-    {
-        if (this.TotalWeight == 0 || this.TotalWeight < this.WaterWeight)
-        {
-            //Error weights not set!
-            throw new Exception();
-        }
-        if (saltPercent > 0)
-        {
-            // Calculate salt by ratio (ratio has been set)
-            this.FlourWeight = this.TotalWeight * (this.Ratio / 100);
-            this.SaltWeight = this.FlourWeight * (this.SaltPercent / 100);
-            if (this.OtherDryPercent > 0)
-            {
-                this.OtherDryWeight = this.FlourWeight / (this.OtherDryPercent / 100);
-            }
-            this.TotalDryWeight = this.FlourWeight + this.SaltWeight + this.OtherDryWeight;
-            this.TotalWetWeight = this.TotalWeight - this.TotalDryWeight;
-            this.WaterWeight = this.totalWetWeight - this.OtherWetWeight;
-        }
-        else
-        {
-            // Calculate salt by weight (ratio not set)
-            this.FlourWeight = this.TotalWeight * (this.Ratio / 100);
-
-            this.TotalDryWeight = this.FlourWeight + this.SaltWeight + this.OtherDryWeight;
-
-            this.TotalWetWeight = this.TotalWeight - this.TotalDryWeight;
-            this.WaterWeight = this.totalWetWeight - this.OtherWetWeight;
-
-            this.SaltPercent = (this.SaltWeight / this.FlourWeight) * 100;
-        }
-
-    }
-
-    public bool IsValidWeights()
-    {
-        //Check if weights can calculate a ratio.  Consider using exceptions to 
-        //return more specific information if values are invalid
-        if (this.FlourWeight > 0.00 &&
-            (this.WaterWeight > 0.00 || (this.ratio > 0 && this.ratio < 100)))
-        {
-            return true;
-        }
-        else if (this.FlourWeight > 0.00 && this.TotalWeight > this.FlourWeight)
-        {
-            return true;
-        }
-        else return false;
-    }
-
-    public bool IsValidRatios()
-    {
-        //Check if given values can calculate weights.  Consider using exceptions to 
-        //return more specific information if values are invalid
-        //
-        if ((this.TotalWeight > 0 || this.FlourWeight > 0) && (this.Ratio > 0.00 && this.Ratio < 100))
-        {
-            return true;
-        }
-        else return false;
     }
 }
