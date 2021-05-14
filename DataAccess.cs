@@ -28,19 +28,19 @@ namespace Pane
 
         public async static void InitializeDatabase()
         {
-            Console.WriteLine("initializing database...");
+
             await ApplicationData.Current.LocalFolder.CreateFileAsync("BreadRecipes.db", CreationCollisionOption.OpenIfExists);
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
+            
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}")) 
             {
                 db.Open();
 
-                String tableCommandOne = "CREATE TABLE IF NOT EXISTS \"recipeTable\"" + DBTEMPLATE+";";    
-
+                String tableCommandOne = "CREATE TABLE IF NOT EXISTS \"recipeTable\"" + DBTEMPLATE;    
                 SqliteCommand createTableOne = new SqliteCommand(tableCommandOne, db);
                 createTableOne.ExecuteReader();
 
-                String tableCommandTwo = "CREATE TABLE IF NOT EXISTS \"persistenceTable\"" + DBTEMPLATE+";";
+                String tableCommandTwo = "CREATE TABLE IF NOT EXISTS \"persistenceTable\"" + DBTEMPLATE;
                 SqliteCommand createTableTwo = new SqliteCommand(tableCommandTwo, db);
                 createTableTwo.ExecuteReader();
             }
@@ -56,19 +56,19 @@ namespace Pane
             List<string> lastEntry = GetRecipeListFromDatabase("persistenceTable");
 
 
-            if (lastEntry.Count < 1)
+            if (lastEntry.Count != 1)
             {
                 //Nothing to load
                 Loaf newLoaf = new Loaf();
                 return newLoaf;
             }
-
-            Loaf previousLoaf = GetRecipeFromDatabaseByName(lastEntry[0], "persistenceTable");
-            return previousLoaf;
+            else
+            {
+                Loaf previousLoaf = GetRecipeFromDatabaseByName(lastEntry[0], "persistenceTable");
+                return previousLoaf;
+            }
         }
-            
-    
-        //SaveCurrentState will save either the loaf passed to it, or the last saved loaf
+
         public static void SaveCurrentState(Loaf saveLoaf = null)
         {
             if (saveLoaf != null)
@@ -103,7 +103,7 @@ namespace Pane
                     deleteCommand.Connection = db;
 
                     // Use parameterized query to prevent SQL injection attacks
-                    deleteCommand.CommandText = "DELETE FROM " +table+ " WHERE Name = @Name;";
+                    deleteCommand.CommandText = "DELETE FROM " + table + " WHERE Name = @Name;";
                     deleteCommand.Parameters.AddWithValue("@Name", currentLoaf.RecipeName);
                     deleteCommand.ExecuteReader();
                     db.Close();
@@ -164,7 +164,7 @@ namespace Pane
         private static void ClearAllDataFromPersistenceTable()
         {
             // Deletes all databaseNames from a specified table in the database
-            // BE CAREFUL! 'persistenceTable' is hard coded for security reasons.
+            // BE CAREFUL! .
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "BreadRecipes.db");
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
@@ -194,7 +194,7 @@ namespace Pane
                 selectCommand.Connection = db;
 
                 // SQL command get the Name value of all databaseNames in the database
-                selectCommand.CommandText = "SELECT Name from " + table +";";
+                selectCommand.CommandText = "SELECT Name from " + table +"  ;";
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
                 
@@ -223,7 +223,7 @@ namespace Pane
                 selectCommand.Connection = db;
 
                 // Use parameterized query to prevent SQL injection attacks
-                selectCommand.CommandText = "SELECT * from " + table +" WHERE name = @Name;";
+                selectCommand.CommandText = "SELECT * from " + table + " WHERE name = @Name;";
                 selectCommand.Parameters.AddWithValue("@Name", recipeName);
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
@@ -248,7 +248,6 @@ namespace Pane
                     }
                 }
                 else throw new SqliteException("query = NULL! Could not populate currentLoaf", 1);
-
                 db.Close();
             }
             return currentLoaf;
