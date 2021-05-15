@@ -1,5 +1,5 @@
 # Il pane
-[![license](https://img.shields.io/github/license/:Tomnowell/:IlPane)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 Bread recipe design application
