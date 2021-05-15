@@ -65,7 +65,7 @@ Clears the text boxes that show the bread's ratios and resets the method of calc
 ### Exit
 When you click the exit button it will ask you whether you want to save or not.  Then it will either save and exit or just exit depending on what option you pick.
 ```
-Note: The `license` badge image link at the top of this file should be updated with the correct `:user` and `:repo`.
+Note: There are many ways to make a loaf of bread.  I hope I have covered all possible ways of trying to design a recipe, but if not it's a bug or an opportunity for developement.  Please let me know what you find!
 ```
 ## Contributing
 PRs accepted.
