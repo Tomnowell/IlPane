@@ -28,7 +28,7 @@ While the scope of this application is less ambitious, I hope it can provide an 
 Please compile your own version from the Microsoft Visual Studio .sln (solution), and source code files provided.
 
 ### Released binaries
-Or check the [releases]() for the latest x86 release. Please run the Install.ps1 powershell script and allow Developer mode if not already enabled.  
+Or check the [releases](https://github.com/Tomnowell/IlPane/releases) for the latest x86 release. Please run the Install.ps1 powershell script and allow Developer mode if not already enabled.  
 
 
 ## Usage
